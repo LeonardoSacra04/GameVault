@@ -24,6 +24,8 @@ header>ul>li>button
 {
     color: #CBD5E1;
     background-color: #263244;
+    border: none;
+    cursor: pointer;
     width: 120px;
     height: 30px;
     text-decoration: none;
@@ -31,6 +33,11 @@ header>ul>li>button
     font-weight: 500;
 }
 
+header>ul>li>button:hover
+{
+    background-color: #3d506d;
+    transform: scale(1.02);
+}
 /* Catálogo e jogos */
 
 .gamesGrid
@@ -72,4 +79,3 @@ header>ul>li>button
 {
     color: #94A3B8;
 }
-
