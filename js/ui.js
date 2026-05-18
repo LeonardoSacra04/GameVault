@@ -18,19 +18,19 @@ function toast(msg, tipo = 'padrao', ms = 3000) //notf de popup aparece por 3sec
 }
 
 // Skeletons
-function skeletons(n = 8) // cria 8 esqueletos por js no html
-{
+function skeletons(n = 8) {
   return Array.from({ length: n }, () => `
     <article class="skCard">
-      <img class="skImagem skeleton"></immg>
+      <div class="skImagem skeleton"></div>
       <div class="skCorpo">
-        <h2 class="skTitulo skeleton"></h2>
-        <p class="skTag skeleton"></p>
-        <p class="skPreco skeleton"></p>
+        <div class="skTitulo skeleton"></div>
+        <div class="skTag skeleton"></div>
+        <div class="skPreco skeleton"></div>
       </div>
     </article>
-  `).join('');// junta tudo numa  so ai fica continuo pra botar no html
+  `).join('');
 }
+
 
 // Formatar preço
 function precoHTML(g) //recebe o jogo
@@ -65,7 +65,7 @@ function cardHTML(g)
           ${precoHTML(g)}
         </div>
       </div>
-    </div>`;//retorna o card bonitinho
+    </article>`;//retorna o card bonitinho
 }
 
 // Renderizar cards em um container

@@ -558,10 +558,11 @@ input, textarea, select { font-family: var(--font); }
 /* ===== CARROSSEL ===== */
 .carrosselWrapper {
   position: relative;
+  width: 100%; /* FIX #1 */
 }
-
 .carrosselTrack {
   display: flex;
+  flex-direction: row; /* FIX #3 */
   gap: 16px;
   overflow-x: auto;
   scroll-behavior: smooth;
