@@ -1,115 +1,143 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lançamentos</title>
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/catalogo.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lançamentos — GameVault</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/pages.css">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/index.html">Explorar</a></li>
-            <li><a href="catalogo.html">Catálogo</a></li>
-            <li><a href="">Lançamentos</a></li>
-            <li><a href="promocoes.html">Promoções</a></li>
-            <li><a href="comunidade.html">Comunidade</a></li>
-            <li><a href="perfil.html">Perfil</a></li>
-        </ul>
 
-        <input type="text" placeholder="Buscar jogos, gêneros ou plataformas...">
-
-        <a href="perfil.html"><img src="/assets/imagens/profilePic.png" alt=""></a>
+  <header>
+    <nav class="navbar">
+      <a href="../index.html" class="navLogo">Game<span>Vault</span></a>
+      <ul class="navLinks">
+        <li><a href="../index.html">Início</a></li>
+        <li><a href="catalogo.html">Catálogo</a></li>
+        <li><a href="lancamentos.html" class="ativo">Lançamentos</a></li>
+        <li><a href="descontos.html">Descontos</a></li>
+        <li><a href="emAlta.html">Em Alta</a></li>
+        <li><a href="comunidade.html">Comunidade</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+      </ul>
+      <div class="navSearch">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="buscaNavbar" placeholder="Buscar jogos..." autocomplete="off">
+        <div class="resultsBusca" id="resultadosBusca"></div>
+      </div>
+      <a href="perfil.html">
+        <img class="navAvatar" id="avatarNavbar" src="https://placehold.co/36x36/0d1525/4a5e80?text=G" alt="Perfil">
+      </a>
     </nav>
-    
-    <header>
-        <h1>Lançamentos</h1>
-            <ul>
-                <li><button>gênero</button></li>
-                <li><button>plataforma</button></li>
-                <li><button>preço</button></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <section class="sectionBlock">
-            <div class="gamesGrid" id="lancamentosCarousel">
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-            </div>
-        </section>
-    </main>
+  </header>
+
+  <div class="paginaWrapper">
+    <div class="layoutListing">
+
+      <div class="cabecalhoPagina">
+        <div>
+          <h1 class="tituloPagina">🚀 Lançamentos</h1>
+          <p class="subtituloPagina">Os jogos mais recentes, ordenados por data</p>
+        </div>
+        <div class="controlesListing">
+          <div class="barraBusca">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="buscaLancamentos" placeholder="Buscar lançamentos...">
+          </div>
+        </div>
+      </div>
+
+      <!-- Destaque -->
+      <div class="destaqueRelease" id="destaqueRelease">
+        <div class="centralizador"><div class="spinner"></div></div>
+      </div>
+
+      <div class="secaoHeader" style="margin-top:0">
+        <h2 class="secaoTitulo">Todos os Lançamentos</h2>
+        <span id="contagemLancamentos" style="font-size:13px;color:var(--textMuted)"></span>
+      </div>
+
+      <div class="gridJogos" id="gridLancamentos"></div>
+
+      <div class="centralizador" id="loaderLancamentos" style="display:none">
+        <div class="spinner"></div>
+        <span>Carregando...</span>
+      </div>
+      <div id="fimLancamentos" style="text-align:center;padding:40px;color:var(--textMuted);font-size:14px;display:none">
+        Todos os lançamentos carregados ✓
+      </div>
+
+    </div>
+
+    <footer>
+      <div class="logoFooter">Game<span>Vault</span></div>
+      <p>© 2025 GameVault · <a href="https://rawg.io" target="_blank">RAWG API</a></p>
+    </footer>
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script>
+    Temas.init();
+    atualizarAvatarNavbar();
+    initBuscaNavbar();
+
+    const grid = document.getElementById('gridLancamentos');
+    const loader = document.getElementById('loaderLancamentos');
+    const fim = document.getElementById('fimLancamentos');
+    let pagina = 1, carregando = false, temMais = true;
+
+    // Destaque
+    Api.getLancamentos(1, 1).then(d => {
+      const g = d.results[0];
+      const el = document.getElementById('destaqueRelease');
+      if (!g) { el.style.display = 'none'; return; }
+      cachear(g);
+      el.innerHTML = `
+        <div class="destaqueBg" style="background-image:url('${g.background_image || ''}')"></div>
+        <div class="destaqueConteudo">
+          <span class="destaqueBadge">🆕 MAIS RECENTE</span>
+          <h2 class="destaqueTitulo">${g.name}</h2>
+          <div class="destaqueMeta">
+            <span>★ ${g.rating?.toFixed(1) || '?'}</span>
+            ${g.released ? `<span>📅 ${new Date(g.released).toLocaleDateString('pt-BR')}</span>` : ''}
+            <span>${(g.genres || []).slice(0, 3).map(x => x.name).join(' · ')}</span>
+          </div>
+          <button class="btn btnPrimario" onclick="abrirModal(cache[${g.id}])">Ver Detalhes</button>
+        </div>`;
+    }).catch(() => { document.getElementById('destaqueRelease').style.display = 'none'; });
+
+    async function carregarPagina() {
+      if (carregando || !temMais) return;
+      carregando = true; loader.style.display = 'flex';
+      try {
+        const d = await Api.getLancamentos(pagina, 20);
+        renderCards(grid, d.results, pagina > 1);
+        document.getElementById('contagemLancamentos').textContent = `${d.count?.toLocaleString('pt-BR') || ''} jogos`;
+        pagina++;
+        if (!d.next) { temMais = false; fim.style.display = 'block'; }
+      } catch(e) { console.error(e); }
+      finally { carregando = false; loader.style.display = 'none'; }
+    }
+
+    new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && !carregando && temMais) carregarPagina();
+    }, { rootMargin: '200px' }).observe(loader);
+
+    let timer;
+    document.getElementById('buscaLancamentos').addEventListener('input', e => {
+      clearTimeout(timer);
+      timer = setTimeout(async () => {
+        const q = e.target.value.trim();
+        if (!q) { pagina = 1; temMais = true; grid.innerHTML = ''; carregarPagina(); return; }
+        const jogos = await Api.buscar(q);
+        renderCards(grid, jogos);
+      }, 500);
+    });
+
+    carregarPagina();
+  </script>
 </body>
 </html>

@@ -1,26 +1,318 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comunidade</title>
-    <link rel="stylesheet" href="/assets/css/main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comunidade — GameVault</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/pages.css">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/index.html">Explorar</a></li>
-            <li><a href="catalogo.html">Catálogo</a></li>
-            <li><a href="lancamentos.html">Lançamentos</a></li>
-            <li><a href="promocoes.html">Promoções</a></li>
-            <li><a href="">Comunidade</a></li>
-            <li><a href="perfil.html">Perfil</a></li>
-        </ul>
 
-        <input type="text" placeholder="Buscar jogos, gêneros ou plataformas...">
-
-        <a href="perfil.html"><img src="/assets/imagens/profilePic.png" alt=""></a>
+  <header>
+    <nav class="navbar">
+      <a href="../index.html" class="navLogo">Game<span>Vault</span></a>
+      <ul class="navLinks">
+        <li><a href="../index.html">Início</a></li>
+        <li><a href="catalogo.html">Catálogo</a></li>
+        <li><a href="lancamentos.html">Lançamentos</a></li>
+        <li><a href="descontos.html">Descontos</a></li>
+        <li><a href="emAlta.html">Em Alta</a></li>
+        <li><a href="comunidade.html" class="ativo">Comunidade</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+      </ul>
+      <div class="navSearch">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="buscaNavbar" placeholder="Buscar jogos..." autocomplete="off">
+        <div class="resultsBusca" id="resultadosBusca"></div>
+      </div>
+      <a href="perfil.html">
+        <img class="navAvatar" id="avatarNavbar" src="https://placehold.co/36x36/0d1525/4a5e80?text=G" alt="Perfil">
+      </a>
     </nav>
-    
+  </header>
+
+  <div class="paginaWrapper">
+    <div class="layoutComunidade">
+
+      <!-- FEED -->
+      <main class="feedComunidade">
+        <div class="cabecalhoPagina">
+          <div>
+            <h1 class="tituloPagina">👾 Comunidade</h1>
+            <p class="subtituloPagina">Reviews, discussões e novidades da galera</p>
+          </div>
+          <button class="btn btnPrimario" id="btnNovaReview">✍️ Nova Review</button>
+        </div>
+
+        <!-- Painel nova review -->
+        <div class="painelNovaReview" id="painelNovaReview" style="display:none">
+          <h3 class="tituloPainel">Escrever uma Review</h3>
+
+          <div class="campoForm">
+            <label>Buscar jogo</label>
+            <input type="text" id="buscaJogoReview" placeholder="Digite o nome do jogo...">
+            <div class="resultadosJogo" id="resultadosJogoReview"></div>
+          </div>
+
+          <div class="campoForm" id="jogoSelecionadoInfo" style="display:none">
+            <div id="jogoSelecionadoDisplay"></div>
+          </div>
+
+          <div class="campoForm">
+            <label>Sua nota</label>
+            <div class="estrelasForm" id="estrelasReview">
+              <button data-val="1">★</button>
+              <button data-val="2">★</button>
+              <button data-val="3">★</button>
+              <button data-val="4">★</button>
+              <button data-val="5">★</button>
+            </div>
+          </div>
+
+          <div class="campoForm">
+            <label>Review</label>
+            <textarea id="textoReview" placeholder="O que você achou do jogo?"></textarea>
+          </div>
+
+          <div style="display:flex;gap:10px">
+            <button class="btn btnPrimario" id="btnPublicarReview">Publicar</button>
+            <button class="btn btnSecundario" id="btnCancelarReview">Cancelar</button>
+          </div>
+        </div>
+
+        <!-- Feed de reviews -->
+        <div id="feedReviews"></div>
+      </main>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebarComunidade">
+        <div class="cardSidebar">
+          <h3 class="tituloSidebar">Seu Perfil</h3>
+          <div class="perfilMini" id="perfilMini"></div>
+        </div>
+
+        <div class="cardSidebar">
+          <h3 class="tituloSidebar">🔥 Top Reviews</h3>
+          <div id="topReviews"></div>
+        </div>
+
+        <div class="cardSidebar">
+          <h3 class="tituloSidebar">🎮 Em Destaque</h3>
+          <div id="jogosDestaque">
+            <div class="centralizador"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+    <footer>
+      <div class="logoFooter">Game<span>Vault</span></div>
+      <p>© 2025 GameVault · <a href="https://rawg.io" target="_blank">RAWG API</a></p>
+    </footer>
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script>
+    Temas.init();
+    atualizarAvatarNavbar();
+    initBuscaNavbar();
+
+    let jogoSelecionado = null, notaSelecionada = 0;
+    const likes = {};
+
+    // Renderizar feed
+    function renderFeed() {
+      const reviews = Storage.getReviews();
+      const feed = document.getElementById('feedReviews');
+
+      if (!reviews.length) {
+        feed.innerHTML = `<div class="estadoVazio"><span class="emoji">🎮</span><p>Nenhuma review ainda. Seja o primeiro!</p></div>`;
+        return;
+      }
+
+      feed.innerHTML = reviews.map(r => {
+        const avatar = r.avatar || `https://placehold.co/38x38/0d1525/4a5e80?text=${(r.user || 'G')[0].toUpperCase()}`;
+        const data = new Date(r.date).toLocaleDateString('pt-BR');
+        const estrelas = r.rating ? '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating) : '';
+        const qtdLikes = likes[r.id] || r.likes || 0;
+        const curtiu = likes[r.id + '_curtido'] || false;
+
+        return `
+          <article class="cardReview" data-id="${r.id}">
+            <div class="cabecalhoReview">
+              <img class="avatarReview" src="${avatar}" alt="${r.user}" onerror="this.src='https://placehold.co/38x38'">
+              <div>
+                <div class="nomeUsuario">${r.user || 'Anônimo'}</div>
+                <div class="dataReview">${data}</div>
+              </div>
+              ${estrelas ? `<span class="notaReview">${estrelas}</span>` : ''}
+            </div>
+            ${r.gameName ? `
+              <div class="jogoReview">
+                ${r.gameImg ? `<img src="${r.gameImg}" alt="${r.gameName}" onerror="this.src='https://placehold.co/52x36'">` : ''}
+                <div>
+                  <div class="nome">${r.gameName}</div>
+                  ${r.rating ? `<div style="color:var(--orange);font-size:11px">${'★'.repeat(r.rating)}</div>` : ''}
+                </div>
+              </div>` : ''}
+            <p class="textoReview">${r.text}</p>
+            <div class="acoesReview">
+              <button class="btnLike ${curtiu ? 'ativo' : ''}" data-id="${r.id}">${curtiu ? '♥' : '♡'} ${qtdLikes}</button>
+              <button class="btnDeletar" data-id="${r.id}">🗑 Excluir</button>
+            </div>
+          </article>`;
+      }).join('');
+
+      // Eventos de like e deletar
+      feed.querySelectorAll('.btnLike').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = parseInt(btn.dataset.id);
+          const curtiu = likes[id + '_curtido'] || false;
+          likes[id + '_curtido'] = !curtiu;
+          likes[id] = (likes[id] || 0) + (curtiu ? -1 : 1);
+          btn.classList.toggle('ativo', !curtiu);
+          btn.textContent = `${!curtiu ? '♥' : '♡'} ${Math.max(0, likes[id])}`;
+        });
+      });
+
+      feed.querySelectorAll('.btnDeletar').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = parseInt(btn.dataset.id);
+          Storage.removeReview(id);
+          toast('Review excluída');
+          renderFeed();
+          renderTopReviews();
+          renderPerfilMini();
+        });
+      });
+
+      renderTopReviews();
+    }
+
+    // Top reviews na sidebar
+    function renderTopReviews() {
+      const reviews = Storage.getReviews();
+      const el = document.getElementById('topReviews');
+      if (!reviews.length) { el.innerHTML = '<p style="font-size:13px;color:var(--textMuted)">Nenhuma ainda.</p>'; return; }
+      el.innerHTML = reviews.slice(0, 3).map(r => `
+        <div style="padding:7px 0;border-bottom:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:600;margin-bottom:2px">${r.gameName || 'Jogo'}</div>
+          <div style="font-size:12px;color:var(--textMuted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.text}</div>
+        </div>`).join('');
+    }
+
+    // Mini perfil sidebar
+    function renderPerfilMini() {
+      const p = Storage.getProfile();
+      const avatar = p.avatar || `https://placehold.co/44x44/0d1525/4a5e80?text=${(p.nickname || 'G')[0].toUpperCase()}`;
+      const qtd = Storage.getReviews().length;
+      document.getElementById('perfilMini').innerHTML = `
+        <img class="perfilMiniAvatar" src="${avatar}" alt="Perfil" onerror="this.src='https://placehold.co/44x44'">
+        <div>
+          <div class="perfilMiniNome">${p.nickname || 'Gamer'}</div>
+          <div class="perfilMiniInfo">${qtd} review${qtd !== 1 ? 's' : ''}</div>
+        </div>`;
+    }
+
+    // Jogos em destaque (sidebar)
+    Api.getPopular(1, 5).then(d => {
+      cachear(d.results);
+      document.getElementById('jogosDestaque').innerHTML = d.results.map(g => `
+        <div class="jogoSidebar" onclick="abrirModal(cache[${g.id}])">
+          <img src="${g.background_image || 'https://placehold.co/40x28'}" alt="${g.name}" onerror="this.src='https://placehold.co/40x28'">
+          <div>
+            <div class="nome">${g.name}</div>
+            <div class="nota">★ ${g.rating?.toFixed(1) || '?'}</div>
+          </div>
+        </div>`).join('');
+    }).catch(() => { document.getElementById('jogosDestaque').innerHTML = '<p style="font-size:13px;color:var(--textMuted)">Erro.</p>'; });
+
+    // Abrir/fechar painel
+    document.getElementById('btnNovaReview').addEventListener('click', () => {
+      const p = document.getElementById('painelNovaReview');
+      p.style.display = p.style.display === 'none' ? 'block' : 'none';
+    });
+    document.getElementById('btnCancelarReview').addEventListener('click', () => {
+      document.getElementById('painelNovaReview').style.display = 'none';
+    });
+
+    // Busca de jogo no formulário
+    let timerBuscaJogo;
+    document.getElementById('buscaJogoReview').addEventListener('input', e => {
+      clearTimeout(timerBuscaJogo);
+      const q = e.target.value.trim();
+      const resultados = document.getElementById('resultadosJogoReview');
+      if (!q) { resultados.style.display = 'none'; return; }
+      timerBuscaJogo = setTimeout(async () => {
+        const jogos = await Api.buscar(q);
+        cachear(jogos);
+        resultados.innerHTML = jogos.slice(0, 5).map(g => `
+          <div class="opcaoJogo" data-id="${g.id}">
+            <img src="${g.background_image || 'https://placehold.co/44x30'}" alt="${g.name}" onerror="this.src='https://placehold.co/44x30'">
+            ${g.name}
+          </div>`).join('');
+        resultados.style.display = 'block';
+
+        resultados.querySelectorAll('.opcaoJogo').forEach(op => {
+          op.addEventListener('click', () => {
+            jogoSelecionado = cache[parseInt(op.dataset.id)];
+            document.getElementById('buscaJogoReview').value = jogoSelecionado.name;
+            resultados.style.display = 'none';
+            const info = document.getElementById('jogoSelecionadoInfo');
+            info.style.display = 'block';
+            document.getElementById('jogoSelecionadoDisplay').innerHTML = `
+              <div class="jogoReview">
+                ${jogoSelecionado.background_image ? `<img src="${jogoSelecionado.background_image}" alt="">` : ''}
+                <div class="nome">${jogoSelecionado.name}</div>
+              </div>`;
+          });
+        });
+      }, 400);
+    });
+
+    // Estrelas do formulário
+    const estrelasEl = document.getElementById('estrelasReview');
+    estrelasEl.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        notaSelecionada = parseInt(btn.dataset.val);
+        estrelasEl.querySelectorAll('button').forEach((b, i) => {
+          b.classList.toggle('ativa', i < notaSelecionada);
+          b.style.color = i < notaSelecionada ? 'var(--orange)' : 'var(--textMuted)';
+        });
+      });
+    });
+
+    // Publicar review
+    document.getElementById('btnPublicarReview').addEventListener('click', () => {
+      const texto = document.getElementById('textoReview').value.trim();
+      if (!texto) return toast('Escreva algo!', 'aviso');
+      const p = Storage.getProfile();
+      Storage.addReview({
+        gameId: jogoSelecionado?.id,
+        gameName: jogoSelecionado?.name || '',
+        gameImg: jogoSelecionado?.background_image || '',
+        user: p.nickname || 'Gamer',
+        avatar: p.avatar || '',
+        text: texto,
+        rating: notaSelecionada,
+      });
+      toast('✍️ Review publicada!', 'sucesso');
+      document.getElementById('painelNovaReview').style.display = 'none';
+      document.getElementById('textoReview').value = '';
+      document.getElementById('buscaJogoReview').value = '';
+      document.getElementById('jogoSelecionadoInfo').style.display = 'none';
+      jogoSelecionado = null; notaSelecionada = 0;
+      estrelasEl.querySelectorAll('button').forEach(b => { b.classList.remove('ativa'); b.style.color = ''; });
+      renderFeed();
+      renderPerfilMini();
+    });
+
+    renderFeed();
+    renderPerfilMini();
+  </script>
 </body>
 </html>

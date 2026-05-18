@@ -1,157 +1,109 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameVault — Sua Plataforma Gamer</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-    <nav>
-        <ul> 
-            <li><a href="">Explorar</a></li>
-            <li><a href="pages/catalogo.html">Catálogo</a></li>
-            <li><a href="pages/lancamentos.html">Lançamentos</a></li>
-            <li><a href="pages/promocoes.html">Promoções</a></li>
-            <li><a href="pages/comunidade.html">Comunidade</a></li>
-            <li><a href="pages/perfil.html">Perfil</a></li>
-        </ul>
 
-        <input type="text" id="searchInput" placeholder="Buscar jogos, gêneros ou plataformas...">
-
-        <a href="pages/perfil.html"><img src="/assets/imagens/profilePic.png" alt=""></a>
+  <!-- NAVBAR -->
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="navLogo">Game<span>Vault</span></a>
+      <ul class="navLinks">
+        <li><a href="index.html" class="ativo">Início</a></li>
+        <li><a href="pages/catalogo.html">Catálogo</a></li>
+        <li><a href="pages/lancamentos.html">Lançamentos</a></li>
+        <li><a href="pages/descontos.html">Descontos</a></li>
+        <li><a href="pages/emAlta.html">Em Alta</a></li>
+        <li><a href="pages/comunidade.html">Comunidade</a></li>
+        <li><a href="pages/perfil.html">Perfil</a></li>
+      </ul>
+      <div class="navSearch">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="buscaNavbar" placeholder="Buscar jogos..." autocomplete="off">
+        <div class="resultsBusca" id="resultadosBusca"></div>
+      </div>
+      <a href="pages/perfil.html">
+        <img class="navAvatar" id="avatarNavbar" src="https://placehold.co/36x36/0d1525/4a5e80?text=G" alt="Perfil">
+      </a>
     </nav>
+  </header>
 
-    <section>
-        <h2 class="sectionTitle">Destaques</h2>
-            <div id="carouselHero">
-            <div id="slidesHero">
-                <img src="https://placehold.co/1700x520" alt=""><!-- Slides injetados via JS -->
-            </div>
-        </div>
+  <div class="paginaWrapper">
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="heroBg" id="heroBg"></div>
+      <div class="heroConteudo">
+        <span class="heroBadge">🔥 Em Destaque</span>
+        <h1 class="heroTitulo" id="heroTitulo">Carregando...</h1>
+        <p class="heroDesc" id="heroDesc"></p>
+        <div class="heroMeta" id="heroMeta"></div>
+        <div class="heroAcoes" id="heroAcoes"></div>
+      </div>
+      <div class="heroPontos" id="heroPontos"></div>
+      <button class="heroNav heroNavPrev" id="heroPrev">‹</button>
+      <button class="heroNav heroNavNext" id="heroNext">›</button>
     </section>
 
-    <main>
-        <!-- populares -->
-        <section class="sectionBlock">
-            <div class="sectionHeader">
-                <h2 class="sectionTitle">🔥 Jogos Populares</h2>
-                <a href="pages/catalogo.html" class="sectionLink">Ver todos →</a>
-            </div>
-            <div class="gamesGrid" id="popularGames">
-                <button class="btnCarousel"></button>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3></h3>
-                    <p></p>
-                    <p></p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3></h3>
-                    <p></p>
-                    <p></p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3></h3>
-                    <p></p>
-                    <p></p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3></h3>
-                    <p></p>
-                    <p></p>
-                </article>
-                <button class="btnCarousel"></button>
-            </div>
-        </section>
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudoPrincipal">
 
-        <!-- lancamentos -->
-
-        <section class="sectionBlock">
-            <div class="sectionHeader">
-                <h2 class="sectionTitle">🚀 Lançamentos</h2>
-                <a href="pages/lancamentos.html" class="sectionLink">Ver todos →</a>
-            </div>
-            <div class="gamesGrid" id="lancamentosCarousel">
-                <button class="btnCarousel"></button>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3></h3>
-                    <p></p>
-                    <p></p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3></h3>
-                    <p></p>
-                    <p></p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3></h3>
-                    <p></p>
-                    <p></p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3></h3>
-                    <p></p>
-                    <p></p>
-                </article>
-                <button class="btnCarousel"></button>
-            </div>
-        </section>
-
-        <!-- promo -->
-
-        <section class="sectionBlock">
-            <div class="sectionHeader">
-                <h2 class="sectionTitle">🏷️ Promoções</h2>
-                <a href="pages/promocoes.html" class="sectionLink">Ver todos →</a>
-            </div>
-            <div class="gamesGrid" id="promocoesCarousel">
-                <button class="btnCarousel"></button>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3></h3>
-                    <p></p>
-                    <p></p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3></h3>
-                    <p></p>
-                    <p></p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3></h3>
-                    <p></p>
-                    <p></p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3></h3>
-                    <p></p>
-                    <p></p>
-                </article>
-                <button class="btnCarousel"></button>
-            </div>
-        </section>
-         
-    </main>
- 
-    <footer>
-        <div>
-            <span class="footer-logo">GameVault</span>
-            <span>© 2025 GameVault. Todos os direitos reservados.</span>
-            <span>Dados por <a href="https://rawg.io" target="_blank">RAWG API</a></span>
+      <!-- Populares -->
+      <section class="secaoCarrossel">
+        <div class="secaoHeader">
+          <h2 class="secaoTitulo">🔥 Populares</h2>
+          <a href="pages/catalogo.html" class="linkVerTodos">Ver todos →</a>
         </div>
+        <div class="carrosselWrapper">
+          <button class="btnCarrossel btnCarrosselPrev" id="prevPopular">‹</button>
+          <div class="carrosselTrack" id="trackPopular"></div>
+          <button class="btnCarrossel btnCarrosselNext" id="nextPopular">›</button>
+        </div>
+      </section>
+
+      <!-- Lançamentos -->
+      <section class="secaoCarrossel">
+        <div class="secaoHeader">
+          <h2 class="secaoTitulo">🚀 Lançamentos</h2>
+          <a href="pages/lancamentos.html" class="linkVerTodos">Ver todos →</a>
+        </div>
+        <div class="carrosselWrapper">
+          <button class="btnCarrossel btnCarrosselPrev" id="prevLancamentos">‹</button>
+          <div class="carrosselTrack" id="trackLancamentos"></div>
+          <button class="btnCarrossel btnCarrosselNext" id="nextLancamentos">›</button>
+        </div>
+      </section>
+
+      <!-- Promoções -->
+      <section class="secaoCarrossel">
+        <div class="secaoHeader">
+          <h2 class="secaoTitulo">🏷️ Promoções</h2>
+          <a href="pages/descontos.html" class="linkVerTodos">Ver todos →</a>
+        </div>
+        <div class="carrosselWrapper">
+          <button class="btnCarrossel btnCarrosselPrev" id="prevDeals">‹</button>
+          <div class="carrosselTrack" id="trackDeals"></div>
+          <button class="btnCarrossel btnCarrosselNext" id="nextDeals">›</button>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="logoFooter">Game<span>Vault</span></div>
+      <p>© 2025 GameVault. Dados por <a href="https://rawg.io" target="_blank">RAWG API</a></p>
     </footer>
+
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/index.js"></script>
 </body>
-<script src="assets/js/api2.js"></script>
 </html>

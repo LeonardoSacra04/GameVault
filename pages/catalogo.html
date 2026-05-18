@@ -1,115 +1,206 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo</title>
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/catalogo.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo — GameVault</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/pages.css">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/index.html">Explorar</a></li>
-            <li><a href="">Catálogo</a></li>
-            <li><a href="lancamentos.html">Lançamentos</a></li>
-            <li><a href="promocoes.html">Promoções</a></li>
-            <li><a href="comunidade.html">Comunidade</a></li>
-            <li><a href="perfil.html">Perfil</a></li>
-        </ul>
 
-        <input type="text" placeholder="Buscar jogos, gêneros ou plataformas...">
-
-        <a href="perfil.html"><img src="/assets/imagens/profilePic.png" alt=""></a>
+  <header>
+    <nav class="navbar">
+      <a href="../index.html" class="navLogo">Game<span>Vault</span></a>
+      <ul class="navLinks">
+        <li><a href="../index.html">Início</a></li>
+        <li><a href="catalogo.html" class="ativo">Catálogo</a></li>
+        <li><a href="lancamentos.html">Lançamentos</a></li>
+        <li><a href="descontos.html">Descontos</a></li>
+        <li><a href="emAlta.html">Em Alta</a></li>
+        <li><a href="comunidade.html">Comunidade</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+      </ul>
+      <div class="navSearch">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="buscaNavbar" placeholder="Buscar jogos..." autocomplete="off">
+        <div class="resultsBusca" id="resultadosBusca"></div>
+      </div>
+      <a href="perfil.html">
+        <img class="navAvatar" id="avatarNavbar" src="https://placehold.co/36x36/0d1525/4a5e80?text=G" alt="Perfil">
+      </a>
     </nav>
-    
-    <header>
-        <h1>Catálogo</h1>
-            <ul>
-                <li><button>gênero</button></li>
-                <li><button>plataforma</button></li>
-                <li><button>preço</button></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <section class="sectionBlock">
-            <div class="gamesGrid" id="lancamentosCarousel">
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-                <article class="skeletonCard">
-                    <img src="https://placehold.co/220x220" alt="">
-                    <h3>Nome do jogo</h3>
-                    <p>4.5 | Action/RPG</p>
-                    <p>R$ 199,90</p>
-                </article>
-            </div>
-        </section>
-    </main>
+  </header>
+
+  <div class="paginaWrapper">
+    <div class="layoutCatalogo">
+
+      <!-- SIDEBAR FILTROS -->
+      <aside class="sidebarFiltros">
+        <h3 class="tituloFiltros">Filtros</h3>
+
+        <div class="grupoFiltro">
+          <label class="labelFiltro">Ordenar por</label>
+          <select id="filtroOrdem" class="selectFiltro">
+            <option value="-rating">Melhor avaliação</option>
+            <option value="-added">Mais populares</option>
+            <option value="-released">Mais recentes</option>
+            <option value="name">A-Z</option>
+          </select>
+        </div>
+
+        <div class="grupoFiltro">
+          <label class="labelFiltro">Gênero</label>
+          <div class="listaGeneros" id="listaGeneros">
+            <div class="centralizador"><div class="spinner"></div></div>
+          </div>
+        </div>
+
+        <div class="grupoFiltro">
+          <label class="labelFiltro">Preço máximo: R$ <span id="exibePreco">500</span></label>
+          <input type="range" id="filtroPreco" class="rangePreco" min="0" max="500" value="500" step="10">
+        </div>
+
+        <div class="grupoFiltro">
+          <label class="checkFiltro">
+            <input type="checkbox" id="filtroDesconto"> Apenas com desconto
+          </label>
+        </div>
+
+        <button class="btn btnPrimario" id="btnAplicar" style="width:100%;margin-bottom:8px">Aplicar Filtros</button>
+        <button class="btn btnSecundario" id="btnLimpar" style="width:100%">Limpar</button>
+      </aside>
+
+      <!-- ÁREA PRINCIPAL -->
+      <main class="areaCatalogo">
+        <div class="cabecalhoCatalogo">
+          <div>
+            <h1 class="tituloPagina">Catálogo</h1>
+            <p class="contagemCatalogo" id="contagemCatalogo">Carregando...</p>
+          </div>
+          <div class="barraBusca">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="buscaCatalogo" placeholder="Buscar no catálogo...">
+          </div>
+        </div>
+
+        <div class="gridJogos" id="gridCatalogo"></div>
+
+        <div class="centralizador" id="loaderCatalogo" style="display:none">
+          <div class="spinner"></div>
+          <span>Carregando mais jogos...</span>
+        </div>
+        <div id="fimCatalogo" style="text-align:center;padding:40px;color:var(--textMuted);font-size:14px;display:none">
+          Todos os jogos carregados ✓
+        </div>
+      </main>
+
+    </div>
+
+    <footer>
+      <div class="logoFooter">Game<span>Vault</span></div>
+      <p>© 2025 GameVault · <a href="https://rawg.io" target="_blank">RAWG API</a></p>
+    </footer>
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script>
+    Temas.init();
+    atualizarAvatarNavbar();
+    initBuscaNavbar();
+
+    const grid = document.getElementById('gridCatalogo');
+    const loader = document.getElementById('loaderCatalogo');
+    const fim = document.getElementById('fimCatalogo');
+    const contagem = document.getElementById('contagemCatalogo');
+
+    let pagina = 1, carregando = false, temMais = true;
+    let generoAtivo = '', ordemAtiva = '-rating', busca = '', precoMax = 500, somenteDesconto = false;
+
+    // Gêneros
+    Api.getGeneros().then(d => {
+      const lista = document.getElementById('listaGeneros');
+      lista.innerHTML = `<button class="btnGenero ativo" data-slug="">Todos</button>` +
+        d.results.map(g => `<button class="btnGenero" data-slug="${g.slug}">${g.name}</button>`).join('');
+      lista.addEventListener('click', e => {
+        const btn = e.target.closest('.btnGenero');
+        if (!btn) return;
+        lista.querySelectorAll('.btnGenero').forEach(b => b.classList.remove('ativo'));
+        btn.classList.add('ativo');
+        generoAtivo = btn.dataset.slug;
+        resetarECarregar();
+      });
+    });
+
+    function resetarECarregar() {
+      pagina = 1; temMais = true;
+      grid.innerHTML = skeletons(12);
+      fim.style.display = 'none';
+      carregarPagina();
+    }
+
+    async function carregarPagina() {
+      if (carregando || !temMais) return;
+      carregando = true;
+      loader.style.display = 'flex';
+      try {
+        const d = await Api.getCatalogo({ page: pagina, pageSize: 24, search: busca, genres: generoAtivo, ordering: ordemAtiva });
+        let jogos = d.results;
+        if (somenteDesconto) jogos = jogos.filter(g => g.discount > 0);
+        if (precoMax < 500) jogos = jogos.filter(g => g.price <= precoMax);
+
+        renderCards(grid, jogos, pagina > 1);
+
+        const total = d.count;
+        const carregados = grid.querySelectorAll('.cardJogo').length;
+        contagem.textContent = `Mostrando ${carregados}${total ? ' de ' + total.toLocaleString('pt-BR') : ''} jogos`;
+
+        pagina++;
+        if (!d.next || pagina > 25) { temMais = false; fim.style.display = 'block'; }
+      } catch(e) {
+        grid.innerHTML += `<div style="grid-column:1/-1;text-align:center;color:var(--textMuted);padding:40px">Erro ao carregar.</div>`;
+      } finally {
+        carregando = false;
+        loader.style.display = 'none';
+      }
+    }
+
+    // Infinite scroll
+    new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && !carregando && temMais) carregarPagina();
+    }, { rootMargin: '200px' }).observe(loader);
+
+    // Filtros
+    document.getElementById('filtroPreco').addEventListener('input', e => {
+      document.getElementById('exibePreco').textContent = e.target.value;
+    });
+
+    document.getElementById('btnAplicar').addEventListener('click', () => {
+      ordemAtiva = document.getElementById('filtroOrdem').value;
+      precoMax = parseInt(document.getElementById('filtroPreco').value);
+      somenteDesconto = document.getElementById('filtroDesconto').checked;
+      resetarECarregar();
+    });
+
+    document.getElementById('btnLimpar').addEventListener('click', () => {
+      document.getElementById('filtroOrdem').value = '-rating';
+      document.getElementById('filtroPreco').value = 500;
+      document.getElementById('filtroDesconto').checked = false;
+      document.getElementById('exibePreco').textContent = '500';
+      document.querySelectorAll('.btnGenero').forEach(b => b.classList.toggle('ativo', b.dataset.slug === ''));
+      ordemAtiva = '-rating'; precoMax = 500; somenteDesconto = false; generoAtivo = '';
+      resetarECarregar();
+    });
+
+    let timerBusca;
+    document.getElementById('buscaCatalogo').addEventListener('input', e => {
+      clearTimeout(timerBusca);
+      timerBusca = setTimeout(() => { busca = e.target.value.trim(); resetarECarregar(); }, 500);
+    });
+
+    resetarECarregar();
+  </script>
 </body>
 </html>

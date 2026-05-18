@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Descontos — GameVault</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <a href="../index.html" class="navLogo">Game<span>Vault</span></a>
+      <ul class="navLinks">
+        <li><a href="../index.html">Início</a></li>
+        <li><a href="catalogo.html">Catálogo</a></li>
+        <li><a href="lancamentos.html">Lançamentos</a></li>
+        <li><a href="descontos.html" class="ativo">Descontos</a></li>
+        <li><a href="emAlta.html">Em Alta</a></li>
+        <li><a href="comunidade.html">Comunidade</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+      </ul>
+      <div class="navSearch">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="buscaNavbar" placeholder="Buscar jogos..." autocomplete="off">
+        <div class="resultsBusca" id="resultadosBusca"></div>
+      </div>
+      <a href="perfil.html">
+        <img class="navAvatar" id="avatarNavbar" src="https://placehold.co/36x36/0d1525/4a5e80?text=G" alt="Perfil">
+      </a>
+    </nav>
+  </header>
+
+  <div class="paginaWrapper">
+    <div class="layoutListing">
+
+      <div class="cabecalhoPagina">
+        <div>
+          <h1 class="tituloPagina">🏷️ Promoções</h1>
+          <p class="subtituloPagina">Os melhores descontos do momento</p>
+        </div>
+        <div class="controlesListing">
+          <select id="ordemDeals" class="selectFiltro">
+            <option value="descPct">Maior desconto</option>
+            <option value="ascPreco">Menor preço</option>
+            <option value="nota">Melhor avaliação</option>
+          </select>
+          <div class="barraBusca">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="buscaDeals" placeholder="Buscar promoções...">
+          </div>
+        </div>
+      </div>
+
+      <!-- Banner top deals -->
+      <div class="bannerDescontos" id="bannerDeals">
+        <div class="centralizador" style="grid-column:1/-1"><div class="spinner"></div></div>
+      </div>
+
+      <div class="secaoHeader" style="margin-top:8px">
+        <h2 class="secaoTitulo">Todos em Promoção</h2>
+        <span id="contagemDeals" style="font-size:13px;color:var(--textMuted)"></span>
+      </div>
+
+      <div class="gridJogos" id="gridDeals"></div>
+
+      <div class="centralizador" id="loaderDeals" style="display:none">
+        <div class="spinner"></div>
+        <span>Carregando promoções...</span>
+      </div>
+      <div id="fimDeals" style="text-align:center;padding:40px;color:var(--textMuted);font-size:14px;display:none">
+        Todas as promoções carregadas ✓
+      </div>
+
+    </div>
+
+    <footer>
+      <div class="logoFooter">Game<span>Vault</span></div>
+      <p>© 2025 GameVault · <a href="https://rawg.io" target="_blank">RAWG API</a></p>
+    </footer>
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script>
+    Temas.init();
+    atualizarAvatarNavbar();
+    initBuscaNavbar();
+
+    const grid = document.getElementById('gridDeals');
+    let todosDeals = [], ordemAtual = 'descPct';
+
+    // Banner
+    async function carregarBanner() {
+      const banner = document.getElementById('bannerDeals');
+      try {
+        let results = [], p = 1;
+        while (results.length < 3 && p <= 5) {
+          const d = await Api.getDeals(p++, 20);
+          results = results.concat(d.results.filter(g => g.discount >= 40));
+        }
+        const top = results.slice(0, 3);
+        if (!top.length) { banner.style.display = 'none'; return; }
+        cachear(top);
+        banner.innerHTML = top.map(g => `
+          <div class="cardDestaqueDeal" onclick="abrirModal(cache[${g.id}])">
+            <div class="dealBg" style="background-image:url('${g.background_image || ''}')"></div>
+            <div class="dealConteudo">
+              <span class="dealBadge">-${g.discount}%</span>
+              <div class="dealNome">${g.name}</div>
+              <div class="dealPrecos">
+                <span class="dealPrecoOriginal">R$ ${g.originalPrice.toFixed(2).replace('.', ',')}</span>
+                <span class="dealPrecoFinal">R$ ${g.price.toFixed(2).replace('.', ',')}</span>
+              </div>
+            </div>
+          </div>`).join('');
+      } catch(e) { banner.style.display = 'none'; }
+    }
+
+    // Carregar todos
+    async function carregarTodos() {
+      document.getElementById('loaderDeals').style.display = 'flex';
+      try {
+        let results = [];
+        for (let p = 1; p <= 6; p++) {
+          const d = await Api.getDeals(p, 20);
+          results = results.concat(d.results);
+          if (!d.next) break;
+        }
+        todosDeals = results;
+        cachear(todosDeals);
+        document.getElementById('contagemDeals').textContent = `${todosDeals.length} jogos em promoção`;
+        renderDeals();
+      } catch(e) { console.error(e); }
+      finally { document.getElementById('loaderDeals').style.display = 'none'; document.getElementById('fimDeals').style.display = 'block'; }
+    }
+
+    function ordenar(arr) {
+      return [...arr].sort((a, b) => {
+        if (ordemAtual === 'descPct') return b.discount - a.discount;
+        if (ordemAtual === 'ascPreco') return a.price - b.price;
+        if (ordemAtual === 'nota') return (b.rating || 0) - (a.rating || 0);
+        return 0;
+      });
+    }
+
+    function renderDeals(q = '') {
+      let lista = todosDeals;
+      if (q) lista = lista.filter(g => g.name.toLowerCase().includes(q.toLowerCase()));
+      renderCards(grid, ordenar(lista));
+    }
+
+    document.getElementById('ordemDeals').addEventListener('change', e => {
+      ordemAtual = e.target.value;
+      renderDeals(document.getElementById('buscaDeals').value);
+    });
+
+    let timer;
+    document.getElementById('buscaDeals').addEventListener('input', e => {
+      clearTimeout(timer);
+      timer = setTimeout(() => renderDeals(e.target.value), 300);
+    });
+
+    carregarBanner();
+    carregarTodos();
+  </script>
+</body>
+</html>

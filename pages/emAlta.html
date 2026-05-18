@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Em Alta — GameVault</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <a href="../index.html" class="navLogo">Game<span>Vault</span></a>
+      <ul class="navLinks">
+        <li><a href="../index.html">Início</a></li>
+        <li><a href="catalogo.html">Catálogo</a></li>
+        <li><a href="lancamentos.html">Lançamentos</a></li>
+        <li><a href="descontos.html">Descontos</a></li>
+        <li><a href="emAlta.html" class="ativo">Em Alta</a></li>
+        <li><a href="comunidade.html">Comunidade</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+      </ul>
+      <div class="navSearch">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="buscaNavbar" placeholder="Buscar jogos..." autocomplete="off">
+        <div class="resultsBusca" id="resultadosBusca"></div>
+      </div>
+      <a href="perfil.html">
+        <img class="navAvatar" id="avatarNavbar" src="https://placehold.co/36x36/0d1525/4a5e80?text=G" alt="Perfil">
+      </a>
+    </nav>
+  </header>
+
+  <div class="paginaWrapper">
+    <div class="layoutListing">
+
+      <div class="cabecalhoPagina">
+        <div>
+          <h1 class="tituloPagina">📈 Em Alta</h1>
+          <p class="subtituloPagina">Rankings e jogos mais populares agora</p>
+        </div>
+      </div>
+
+      <!-- Ranking Top 10 -->
+      <div class="secaoHeader">
+        <h2 class="secaoTitulo">🏆 Top 10 da Semana</h2>
+      </div>
+
+      <div class="listaRanking" id="listaRanking">
+        <div class="centralizador"><div class="spinner"></div></div>
+      </div>
+
+      <!-- Grid trending -->
+      <div class="secaoHeader" style="margin-top:8px">
+        <h2 class="secaoTitulo">Todos os Trending</h2>
+        <span id="contagemTrend" style="font-size:13px;color:var(--textMuted)"></span>
+      </div>
+
+      <div class="gridJogos" id="gridTrend"></div>
+
+      <div class="centralizador" id="loaderTrend" style="display:none">
+        <div class="spinner"></div>
+        <span>Carregando...</span>
+      </div>
+      <div id="fimTrend" style="text-align:center;padding:40px;color:var(--textMuted);font-size:14px;display:none">
+        Todos os trending carregados ✓
+      </div>
+
+    </div>
+
+    <footer>
+      <div class="logoFooter">Game<span>Vault</span></div>
+      <p>© 2025 GameVault · <a href="https://rawg.io" target="_blank">RAWG API</a></p>
+    </footer>
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script>
+    Temas.init();
+    atualizarAvatarNavbar();
+    initBuscaNavbar();
+
+    const grid = document.getElementById('gridTrend');
+    const loader = document.getElementById('loaderTrend');
+    let pagina = 1, carregando = false, temMais = true;
+
+    // Ranking
+    Api.getTrending(1, 10).then(d => {
+      const jogos = d.results;
+      cachear(jogos);
+      const maxAdded = Math.max(...jogos.map(g => g.added || 0));
+      const lista = document.getElementById('listaRanking');
+      lista.innerHTML = jogos.map((g, i) => {
+        const posClass = i === 0 ? 'ouro' : i === 1 ? 'prata' : i === 2 ? 'bronze' : '';
+        const pct = maxAdded ? Math.round((g.added || 0) / maxAdded * 100) : Math.round((10 - i) / 10 * 100);
+        return `
+          <div class="itemRanking" onclick="abrirModal(cache[${g.id}])">
+            <span class="posicaoRanking ${posClass}">${String(i + 1).padStart(2, '0')}</span>
+            <img class="imagemRanking" src="${g.background_image || 'https://placehold.co/60x44'}" alt="${g.name}" onerror="this.src='https://placehold.co/60x44'">
+            <div class="infoRanking">
+              <div class="nomeRanking">${g.name}</div>
+              <div class="metaRanking">
+                <span class="notaRanking">★ ${g.rating?.toFixed(1) || '?'}</span>
+                <span>${(g.genres || []).slice(0, 2).map(x => x.name).join(', ')}</span>
+                ${g.added ? `<span>${g.added.toLocaleString('pt-BR')} jogadores</span>` : ''}
+              </div>
+            </div>
+            <div class="barraRanking"><div class="barraRankingFill" style="width:${pct}%"></div></div>
+          </div>`;
+      }).join('');
+    }).catch(() => { document.getElementById('listaRanking').innerHTML = `<p style="color:var(--textMuted)">Erro ao carregar ranking.</p>`; });
+
+    // Grid trending
+    async function carregarTrend() {
+      if (carregando || !temMais) return;
+      carregando = true; loader.style.display = 'flex';
+      try {
+        const d = await Api.getTrending(pagina, 20);
+        renderCards(grid, d.results, pagina > 1);
+        document.getElementById('contagemTrend').textContent = `${d.count?.toLocaleString('pt-BR') || ''} jogos`;
+        pagina++;
+        if (!d.next || pagina > 10) { temMais = false; document.getElementById('fimTrend').style.display = 'block'; }
+      } catch(e) { console.error(e); }
+      finally { carregando = false; loader.style.display = 'none'; }
+    }
+
+    new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && !carregando && temMais) carregarTrend();
+    }, { rootMargin: '200px' }).observe(loader);
+
+    carregarTrend();
+  </script>
+</body>
+</html>
