@@ -702,15 +702,3 @@ footer a { color: var(--accent); }
   padding-top: 64px;
   min-height: 100vh;
 }
-
-/* ===== RESPONSIVO ===== */
-@media (max-width: 768px) {
-  .navbar { padding: 0 16px; gap: 12px; }
-  .navLinks { display: none; }
-  .navSearch input { width: 160px; }
-  .navSearch input:focus { width: 200px; }
-  .gridJogos { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
-  .btnCarrossel { display: none; }
-  .modal { max-height: 95vh; }
-  .modalCorpo { padding: 16px 18px 24px; }
-}

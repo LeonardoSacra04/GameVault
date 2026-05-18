@@ -1,111 +1,467 @@
-.profileContainer {
-    width: 1400px;
-    margin: 0 auto;
-    background-color: #131C2F;
-    border-radius: 24px;
-    padding: 40px;
+/* ===== perfil.css =====
+   Estilos exclusivos da página de perfil.
+   Requer: main.css carregado antes (variáveis CSS, .btn, navbar, etc.)
+================================================================ */
+
+/* ============================================================
+   LAYOUT PRINCIPAL
+============================================================ */
+.layoutPerfil {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
 }
 
-.profileHeader {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-
-    margin-bottom: 40px;
+/* ============================================================
+   CARD CABEÇALHO
+============================================================ */
+.cardCabecalhoPerfil {
+  background: var(--bgCard);
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLg);
+  overflow: hidden;
+  margin-bottom: 16px;
 }
 
-.profileFigure {
-    width: 180px;
-    height: 180px;
-
-    border-radius: 50%;
-
-    background-color: #D9D9D9;
+.bannerPerfil {
+  height: 140px;
+  background: linear-gradient(135deg, var(--accent) 0%, #1e3a6e 60%, #0d1f3a 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-.profileInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+/* Brilho radial sutil no banner */
+.bannerPerfil::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 80% at 30% 50%, rgba(255,255,255,0.07) 0%, transparent 70%);
 }
 
-.profileInfo h1 {
-    color: #FFFFFF;
-    font-size: 42px;
-    font-weight: 700;
+/* Grade decorativa */
+.bannerPerfil::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
-.profileInfo button {
-    width: 180px;
-    height: 50px;
-
-    border: none;
-    border-radius: 16px;
-
-    background-color: #CBD5E1;
-
-    font-size: 16px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
+.conteudoCabecalhoPerfil {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  padding: 0 28px 24px;
+  flex-wrap: wrap;
 }
 
-.profileInfo button:hover {
-    background-color: #FFFFFF;
-    transform: scale(1.02);
+/* ---- AVATAR ---- */
+.wrapAvatar {
+  position: relative;
+  margin-top: -48px;
+  flex-shrink: 0;
+  z-index: 2;
 }
 
-.profileBiography,
-.profileGames {
-    background-color: #536180;
-
-    border-radius: 24px;
-
-    padding: 32px;
-
-    margin-bottom: 32px;
+.avatarPerfil {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 4px solid var(--bgCard);
+  object-fit: cover;
+  background: var(--bgElevated);
+  display: block;
+  transition: border-color var(--transition);
 }
 
-.profileBiography h2,
-.profileGames h2 {
-    color: #FFFFFF;
+.wrapAvatar:hover .avatarPerfil { border-color: var(--accent); }
 
-    margin-bottom: 20px;
-
-    font-size: 24px;
+.btnEditarAvatar {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.55);
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition);
+  cursor: pointer;
 }
 
-.profileBiography p {
-    color: #CBD5E1;
+.wrapAvatar:hover .btnEditarAvatar { opacity: 1; }
 
-    line-height: 1.7;
+#inputAvatar { display: none; }
 
-    font-size: 16px;
+/* ---- INFO ---- */
+.infoPerfil {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 4px;
 }
 
-.gamesContainer {
-    display: flex;
-    gap: 45px;
+.nomePerfil {
+  font-family: var(--fontDisplay);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 2px;
 }
 
-.skeletonCardPerfil
-{
-    color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    background-color: #1E293B;
-    border-radius: 24px;
-    height: 390px;
-    width: 300px;
+/* Campo nome no modo edição */
+.inputNome {
+  font-family: var(--fontDisplay);
+  font-size: 24px;
+  font-weight: 800;
+  background: var(--bgElevated);
+  border: 1px solid var(--accent);
+  border-radius: var(--radiusSm);
+  color: var(--text);
+  padding: 4px 10px;
+  outline: none;
+  width: 100%;
+  max-width: 340px;
+  box-shadow: 0 0 0 3px var(--accentGlow);
+  display: none;
+  margin-bottom: 4px;
 }
 
-.skeletonCardPerfil>img
-{
-    border-radius: 24px 24px 0 0;
-    height: 300px;
-    width: 300px;
+.handlePerfil {
+  font-size: 13px;
+  color: var(--textMuted);
+  font-family: var(--fontMono);
+  margin-bottom: 10px;
+}
+
+.statsPerfil {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.stat .valor {
+  font-family: var(--fontDisplay);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--accent);
+  display: block;
+  line-height: 1.1;
+}
+
+.stat .rotulo {
+  font-size: 11px;
+  color: var(--textMuted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-top: 1px;
+}
+
+/* Botões de ação no canto superior direito */
+.acoesPerfilTopo {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+  align-self: flex-end;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Badge "Editando" com ponto piscante */
+.badgeEditando {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--fontMono);
+  color: var(--accent);
+  background: var(--accentGlow);
+  border: 1px solid rgba(59,130,246,0.3);
+  padding: 3px 10px;
+  border-radius: 99px;
+  letter-spacing: 0.4px;
+}
+.badgeEditando.visivel { display: flex; }
+
+.pontoPiscante {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: piscar 1s ease-in-out infinite;
+}
+
+@keyframes piscar {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+/* ============================================================
+   TABS
+============================================================ */
+.tabsPerfil {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.tabPerfil {
+  padding: 10px 22px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--textSub);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin-bottom: -1px;
+}
+
+.tabPerfil:hover  { color: var(--text); }
+.tabPerfil.ativo  { color: var(--accent); border-bottom-color: var(--accent); }
+
+.conteudoTab        { display: none; }
+.conteudoTab.ativo  { display: block; animation: fadeInTab 0.2s ease; }
+
+@keyframes fadeInTab {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   CARD DE SEÇÃO (bio, temas, favoritos, reviews)
+============================================================ */
+.cardSecao {
+  background: var(--bgCard);
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLg);
+  padding: 24px;
+  margin-bottom: 16px;
+  transition: border-color var(--transition);
+}
+.cardSecao:hover { border-color: var(--borderHover); }
+
+.cabecalhoSecao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.tituloSecao {
+  font-family: var(--fontDisplay);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ============================================================
+   BIOGRAFIA
+============================================================ */
+.textoBio {
+  font-size: 14px;
+  color: var(--textSub);
+  line-height: 1.8;
+  min-height: 24px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.textoBio.vazio {
+  color: var(--textMuted);
+  font-style: italic;
+}
+
+.textareaBio {
+  width: 100%;
+  background: var(--bgElevated);
+  border: 1px solid var(--accent);
+  border-radius: var(--radiusSm);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.8;
+  padding: 12px 14px;
+  resize: vertical;
+  min-height: 110px;
+  max-height: 280px;
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accentGlow);
+  display: none;
+}
+
+/* Contador de caracteres */
+.contadorBio {
+  font-size: 11px;
+  color: var(--textMuted);
+  font-family: var(--fontMono);
+  text-align: right;
+  margin-top: 6px;
+  display: none;
+}
+.contadorBio.visivel { display: block; }
+.contadorBio.quase   { color: var(--orange); }
+.contadorBio.limite  { color: var(--red); }
+
+/* ============================================================
+   TEMAS
+============================================================ */
+.gridTemas {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btnTema {
+  padding: 6px 16px;
+  border-radius: var(--radiusSm);
+  border: 1px solid var(--border);
+  background: var(--bgElevated);
+  color: var(--textSub);
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btnTema:hover { border-color: var(--borderHover); color: var(--text); }
+.btnTema.ativo { border-color: var(--accent); color: var(--accent); background: var(--accentGlow); }
+
+.temaCor {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   FAVORITOS
+============================================================ */
+.gridFavoritos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.cardFavorito {
+  background: var(--bgElevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+}
+.cardFavorito:hover {
+  transform: translateY(-3px);
+  border-color: var(--borderHover);
+  box-shadow: var(--shadowGlow);
+}
+
+.cardFavorito img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.cardFavoritoInfo    { padding: 8px 10px; }
+.cardFavoritoNome    { font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cardFavoritoMeta    { font-size: 11px; color: var(--textMuted); margin-top: 2px; }
+
+.btnRemoverFav {
+  position: absolute;
+  top: 6px; right: 6px;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.65);
+  border: none;
+  color: var(--textMuted);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all var(--transition);
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+.cardFavorito:hover .btnRemoverFav { opacity: 1; }
+.btnRemoverFav:hover { color: var(--red); background: rgba(0,0,0,0.85); }
+
+/* ============================================================
+   REVIEWS
+============================================================ */
+.cardReview {
+  background: var(--bgElevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 10px;
+  transition: border-color var(--transition);
+  animation: fadeInTab 0.25s ease;
+}
+.cardReview:hover { border-color: var(--borderHover); }
+
+.cabecalhoReview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.jogoReviewImg   { width: 52px; height: 36px; border-radius: 6px; object-fit: cover; flex-shrink: 0; }
+.jogoReviewNome  { font-size: 13px; font-weight: 700; color: var(--text); }
+.jogoReviewNota  { font-size: 12px; color: var(--orange); margin-top: 1px; }
+.dataReview      { font-size: 11px; color: var(--textMuted); margin-left: auto; font-family: var(--fontMono); }
+.textoReview     { font-size: 13px; color: var(--textSub); line-height: 1.7; }
+
+.btnDeletarReview {
+  background: none;
+  border: none;
+  color: var(--textMuted);
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: color var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font);
+}
+.btnDeletarReview:hover { color: var(--red); }
+
+/* ============================================================
+   ESTADO VAZIO
+============================================================ */
+.estadoVazio {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--textMuted);
+}
+.estadoVazio .emoji { font-size: 32px; display: block; margin-bottom: 10px; }
+.estadoVazio p      { font-size: 14px; line-height: 1.6; }
+
+/* ============================================================
+   RESPONSIVO
+============================================================ */
+@media (max-width: 768px) {
+  .layoutPerfil            { padding: 28px 16px 60px; }
+  .conteudoCabecalhoPerfil { padding: 0 18px 20px; gap: 14px; }
+  .acoesPerfilTopo         { width: 100%; }
+  .statsPerfil             { gap: 16px; }
+  .gridFavoritos           { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+  .bannerPerfil            { height: 110px; }
+  .nomePerfil              { font-size: 20px; }
+  .inputNome               { font-size: 18px; }
+  .tabPerfil               { padding: 10px 14px; font-size: 13px; }
 }
