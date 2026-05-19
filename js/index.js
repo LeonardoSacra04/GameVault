@@ -8,7 +8,7 @@ let heroJogos = [];
 let heroIdx = 0;
 let heroTimer;
 
-function renderHero(g)//carrosel principal 
+function renderHero(g)//carrossel principal 
 {
   document.getElementById('heroBg').style.backgroundImage = `url('${g.background_image || ''}')`;//foto de capa do jogo
 
@@ -16,7 +16,7 @@ function renderHero(g)//carrosel principal
 
   document.getElementById('heroDesc').textContent = (g.genres || [])//genero do jogo
     .slice(0, 3)// ate 3 generos
-    .map(x => x.name)// nome do geneto
+    .map(x => x.name)// nome do genero
     .join(' · ');// junta os nomes com ` . `
 
   document.getElementById('heroMeta').innerHTML = `
