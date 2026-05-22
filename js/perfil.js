@@ -8,6 +8,7 @@
    INICIALIZAÇÃO — ponto de entrada
 ============================================================ */
 function initPerfil() {
+  AvatarEditor.init();        // editor de foto de perfil
   Temas.init();               // aplica tema salvo (igual às outras páginas)
   _carregarCabecalho();       // nome, handle, avatar, stats
   _carregarTemaAtivo();       // marca botão de tema correto
@@ -16,7 +17,7 @@ function initPerfil() {
   _carregarStats();           // stat jogando
   _bindTabs();                // navegação entre tabs
   _bindEdicao();              // botões editar / salvar / cancelar
-  _bindAvatar();              // upload de foto
+  // _bindAvatar() — substituído por AvatarEditor.init()
   _bindTemas();               // seleção de tema
   _bindNavbarAvatar();        // atualiza avatar da navbar
 }
@@ -101,13 +102,13 @@ function _bindEdicao() {
   document.getElementById('btnSalvar')  ?.addEventListener('click', () => _sairEdicao(true));
   document.getElementById('btnCancelar')?.addEventListener('click', () => _sairEdicao(false));
 
-  // Enter salva no campo nome, Esc cancela
+  // Enter salva no campo nome, Escape cancela
   document.getElementById('inputNome')?.addEventListener('keydown', (e) => {
     if (e.key === 'Enter')  { e.preventDefault(); _sairEdicao(true); }
     if (e.key === 'Escape') { _sairEdicao(false); }
   });
 
-  // Esc global fecha edição se estiver aberta
+  // Escape global fecha edição se estiver aberta
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && _estaEditando()) _sairEdicao(false);
   });
@@ -341,13 +342,3 @@ function _carregarReviews() {
    ARRANQUE
 ============================================================ */
 document.addEventListener('DOMContentLoaded', initPerfil);
-
-// config responsividade da navbar
-const menuBtn = document.getElementById("menuMobileBtn");
-const navLinks = document.getElementById("navLinks");
-
-if (menuBtn && navLinks) {
-  menuBtn.addEventListener("click", () => {
-    navLinks.classList.toggle("ativo");
-  });
-}

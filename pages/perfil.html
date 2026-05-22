@@ -4,18 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GameVault — Perfil</title>
+
+  <script>
+    try {
+      const t = JSON.parse(localStorage.getItem('gv_theme')) || 'padrao';
+      document.documentElement.setAttribute('data-theme', t === 'padrao' ? '' : t);
+    } catch(e) {}
+  </script>
+
   <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/perfil.css">
+  <link rel="stylesheet" href="../css/avatar-editor.css">
 </head>
 <body>
 
-<!-- ===== NAVBAR ===== -->
 <header>
   <nav class="navbar">
     <a href="../index.html" class="navLogo">Game<span>Vault</span></a>
-    <button class="menuMobileBtn" id="menuMobileBtn">
-      ☰
-    </button>
+    <button class="menuMobileBtn" id="menuMobileBtn">☰</button>
     <ul class="navLinks" id="navLinks">
       <li><a href="../index.html">Início</a></li>
       <li><a href="catalogo.html">Catálogo</a></li>
@@ -25,9 +31,7 @@
       <li><a href="comunidade.html">Comunidade</a></li>
       <li><a href="perfil.html" class="ativo">Perfil</a></li>
     </ul>
-    <button class="searchMobileBtn" id="searchMobileBtn">
-      🔍
-    </button>
+    <button class="searchMobileBtn" id="searchMobileBtn">🔍</button>
     <div class="navSearch">
       <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
@@ -36,7 +40,7 @@
       <div class="resultsBusca" id="resultadosBusca"></div>
     </div>
     <a href="perfil.html" class="navPerfil">
-      <img class="navAvatar" id="avatarNavbar"
+      <img class="navAvatar" id="avatarNavbar" data-avatar
            src="https://placehold.co/36x36/0d1525/4a5e80?text=G" alt="Perfil">
     </a>
   </nav>
@@ -45,22 +49,21 @@
 <div class="paginaWrapper">
 <main class="layoutPerfil">
 
-  <!-- ===== CABEÇALHO DO PERFIL ===== -->
+  <!-- CABEÇALHO -->
   <div class="cardCabecalhoPerfil">
-
     <div class="bannerPerfil" id="bannerPerfil"></div>
-
     <div class="conteudoCabecalhoPerfil">
 
-      <!-- Avatar -->
+      <!-- Avatar do cabeçalho — clique abre o editor -->
       <div class="wrapAvatar">
-        <img class="avatarPerfil" id="avatarPerfil"
+        <img class="avatarPerfil" id="avatarPerfil" data-avatar
              src="https://placehold.co/96x96/0d1525/4a5e80?text=G" alt="Avatar">
-        <button class="btnEditarAvatar" id="btnEditarAvatar" title="Trocar foto">📷</button>
-        <input type="file" id="inputAvatar" accept="image/*">
+        <button class="btnEditarAvatar" id="avBtnEditarAvatar"
+                title="Trocar foto" aria-label="Trocar foto de perfil">📷</button>
+        <input type="file" id="avInputFile" accept="image/*" style="display:none">
       </div>
 
-      <!-- Nome + handle + stats -->
+      <!-- Nome + stats -->
       <div class="infoPerfil">
         <div class="nomePerfil" id="nomePerfil">Gamer</div>
         <input class="inputNome" id="inputNome" type="text"
@@ -82,7 +85,7 @@
         </div>
       </div>
 
-      <!-- Botões de ação -->
+      <!-- Botões editar -->
       <div class="acoesPerfilTopo">
         <span class="badgeEditando" id="badgeEditando">
           <span class="pontoPiscante"></span>Editando
@@ -93,19 +96,60 @@
       </div>
 
     </div>
-  </div><!-- /cardCabecalhoPerfil -->
+  </div>
 
-  <!-- ===== TABS ===== -->
+  <!-- EDITOR DE AVATAR — fora do cabeçalho, oculto por padrão -->
+  <div class="avEditor" id="avEditor">
+    <div class="avCanvasWrap">
+      <div class="avClip" id="avClip">
+        <canvas id="avCanvas"></canvas>
+      </div>
+      <div class="avGuide" aria-hidden="true"></div>
+    </div>
+    <div class="avRight">
+      <div class="avPreviewRow">
+        <div class="avPreviewItem">
+          <div class="avPreviewCircle" style="width:96px;height:96px">
+            <img data-avatar-preview alt="Preview perfil">
+          </div>
+          <div class="avPreviewLabel">Perfil (96px)</div>
+        </div>
+        <div class="avPreviewItem">
+          <div class="avPreviewCircle" style="width:48px;height:48px">
+            <img data-avatar-preview alt="Preview navbar">
+          </div>
+          <div class="avPreviewLabel">Navbar (48px)</div>
+        </div>
+        <div class="avPreviewItem">
+          <div class="avPreviewCircle" style="width:32px;height:32px">
+            <img data-avatar-preview alt="Preview mini">
+          </div>
+          <div class="avPreviewLabel">Mini (32px)</div>
+        </div>
+      </div>
+      <div class="avZoomGroup">
+        <div class="avZoomLabel">🔍 Zoom <span id="avZoomVal">100%</span></div>
+        <input type="range" class="avZoomSlider" id="avZoomSlider"
+               min="100" max="300" value="100" step="1">
+      </div>
+      <p class="avTip">☝️ Arraste para reposicionar · scroll para zoom</p>
+      <div class="avActions">
+        <button class="btn btnSecundario" id="avBtnCancelar">✕ Cancelar</button>
+        <button class="btn btnPrimario"   id="avBtnSalvar">💾 Salvar foto</button>
+      </div>
+      <button class="avBtnOutra" id="avBtnOutra">↩ Escolher outra imagem</button>
+    </div>
+  </div>
+
+  <!-- TABS -->
   <div class="tabsPerfil">
     <button class="tabPerfil ativo" data-tab="sobre">Sobre</button>
     <button class="tabPerfil"       data-tab="favoritos">Favoritos</button>
     <button class="tabPerfil"       data-tab="reviews">Reviews</button>
   </div>
 
-  <!-- ===== TAB: SOBRE ===== -->
+  <!-- TAB: SOBRE -->
   <div class="conteudoTab ativo" id="tab-sobre">
-
-    <!-- Biografia -->
     <div class="cardSecao">
       <div class="cabecalhoSecao">
         <span class="tituloSecao">📝 Biografia</span>
@@ -117,8 +161,6 @@
                 placeholder="Fale um pouco sobre você, seus jogos favoritos..."></textarea>
       <div class="contadorBio" id="contadorBio">0 / 300</div>
     </div>
-
-    <!-- Temas -->
     <div class="cardSecao">
       <div class="cabecalhoSecao">
         <span class="tituloSecao">🎨 Tema da Interface</span>
@@ -141,10 +183,9 @@
         </button>
       </div>
     </div>
+  </div>
 
-  </div><!-- /tab-sobre -->
-
-  <!-- ===== TAB: FAVORITOS ===== -->
+  <!-- TAB: FAVORITOS -->
   <div class="conteudoTab" id="tab-favoritos">
     <div class="cardSecao">
       <div class="cabecalhoSecao">
@@ -155,7 +196,7 @@
     </div>
   </div>
 
-  <!-- ===== TAB: REVIEWS ===== -->
+  <!-- TAB: REVIEWS -->
   <div class="conteudoTab" id="tab-reviews">
     <div class="cardSecao">
       <div class="cabecalhoSecao">
@@ -171,16 +212,10 @@
 
 <div id="toastContainer"></div>
 
-<!--
-  ORDEM DE CARREGAMENTO DOS SCRIPTS:
-  1. storage.js  — Storage + Temas (sem dependências)
-  2. api.js      — Api (depende de nada)
-  3. ui.js       — toast, cardHTML, abrirModal, etc. (depende de Storage + Api)
-  4. perfil.js   — lógica desta página (depende de Storage + ui.js)
--->
 <script src="../js/storage.js"></script>
 <script src="../js/api.js"></script>
 <script src="../js/ui.js"></script>
+<script src="../js/avatar-editor.js"></script>
 <script src="../js/perfil.js"></script>
 
 </body>
