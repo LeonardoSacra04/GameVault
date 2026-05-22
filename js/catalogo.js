@@ -92,3 +92,13 @@ Temas.init();
     });
 
     resetarECarregar();
+
+    // config responsividade da navbar
+    const menuBtn = document.getElementById("menuMobileBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    if (menuBtn && navLinks) {
+      menuBtn.addEventListener("click", () => {
+        navLinks.classList.toggle("ativo");
+      });
+    }

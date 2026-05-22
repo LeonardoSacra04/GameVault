@@ -12,7 +12,10 @@
   <header>
     <nav class="navbar">
       <a href="../index.html" class="navLogo">Game<span>Vault</span></a>
-      <ul class="navLinks">
+      <button class="menuMobileBtn" id="menuMobileBtn">
+        ☰
+      </button>
+      <ul class="navLinks" id="navLinks">
         <li><a href="../index.html">Início</a></li>
         <li><a href="catalogo.html">Catálogo</a></li>
         <li><a href="lancamentos.html">Lançamentos</a></li>
@@ -21,12 +24,15 @@
         <li><a href="comunidade.html" class="ativo">Comunidade</a></li>
         <li><a href="perfil.html">Perfil</a></li>
       </ul>
+      <button class="searchMobileBtn" id="searchMobileBtn">
+        🔍
+      </button>
       <div class="navSearch">
         <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         <input type="text" id="buscaNavbar" placeholder="Buscar jogos..." autocomplete="off">
         <div class="resultsBusca" id="resultadosBusca"></div>
       </div>
-      <a href="perfil.html">
+      <a href="perfil.html" class="navPerfil">
         <img class="navAvatar" id="avatarNavbar" src="https://placehold.co/36x36/0d1525/4a5e80?text=G" alt="Perfil">
       </a>
     </nav>

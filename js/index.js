@@ -179,3 +179,36 @@ carregarCarrossel(
     };
   }
 );
+
+// config responsividade da navbar
+const menuBtn = document.getElementById("menuMobileBtn");
+const navLinks = document.getElementById("navLinks");
+
+if (menuBtn && navLinks) {
+  menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("ativo");
+  });
+}
+
+// config responsividade barra de pesquisa da navbar
+const searchBtn = document.getElementById("searchMobileBtn");
+const navSearch = document.querySelector(".navSearch");
+
+if (searchBtn && navSearch) {
+
+  searchBtn.addEventListener("click", () => {
+
+    navSearch.classList.toggle("ativo");
+
+    if (navSearch.classList.contains("ativo")) {
+
+      setTimeout(() => {
+
+        const input = navSearch.querySelector("input");
+
+        if (input) input.focus();
+
+      }, 200);
+    }
+  });
+}

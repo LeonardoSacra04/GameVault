@@ -702,3 +702,191 @@ footer a { color: var(--accent); }
   padding-top: 64px;
   min-height: 100vh;
 }
+
+/* ===== MENU MOBILE ===== */
+
+.menuMobileBtn {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+/* ===== PESQUISA MOBILE ===== */
+
+.searchMobileBtn {
+  display: none;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+
+/* Celulares */
+@media (max-width: 768px) {
+
+  .navbar {
+    height: auto;
+    flex-wrap: wrap;
+    padding: 16px 16px;
+    gap: 12px;
+  }
+
+  .navLogo {
+    width: 100%;
+    text-align: center;
+  }
+
+  .menuMobileBtn {
+    display: block;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 9999;
+  }
+
+  .navLinks {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 260px;
+    height: 100vh;
+    background: #111;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 90px 24px;
+    gap: 18px;
+    transition: 0.3s;
+    z-index: 9998;
+  }
+
+  .navLinks.ativo {
+    left: 0;
+  }
+
+  .navLinks li {
+    width: 100%;
+  }
+
+  .navLinks a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 10px;
+  }
+
+  .searchMobileBtn {
+    display: flex;
+    position: fixed;
+    top: 18px;
+    left: 58px;
+    z-index: 999;
+
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .navSearch {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    padding: 14px;
+    background: #081120;
+
+    transform: translateY(-120%);
+    opacity: 0;
+    pointer-events: none;
+
+    transition: 0.25s;
+    z-index: 9998;
+  }
+
+  .navSearch.ativo {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .navSearch input {
+    width: 100%;
+  }
+
+  .navSearch input:focus {
+    width: 100%;
+  }
+
+  .resultsBusca {
+    min-width: 100%;
+  }
+
+  .navPerfil {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 9999;
+  }
+
+  .navPerfil img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+  }
+
+  main {
+    padding-top: 16px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .heroContent h1 {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  .heroContent p {
+    font-size: 15px;
+  }
+
+  .cardsGrid,
+  .gamesGrid,
+  .promocoesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .cardGame img {
+    height: 220px;
+    object-fit: cover;
+  }
+
+  .sectionTitle {
+    font-size: 24px;
+  }
+
+  .perfilContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .perfilSidebar {
+    width: 100%;
+  }
+
+  .perfilConteudo {
+    width: 100%;
+  }
+
+  footer {
+    text-align: center;
+    padding: 24px 16px;
+  }
+
+}
