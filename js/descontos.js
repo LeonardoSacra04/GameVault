@@ -12,7 +12,7 @@ Temas.init();
         let results = [], p = 1;
         while (results.length < 3 && p <= 5) {
           const d = await Api.getDeals(p++, 20);
-          results = results.concat(d.results.filter(g => g.discount >= 40));
+          results = results.concat(FiltroNsfw.filtrar(d.results.filter(g => g.discount >= 40)));
         }
         const top = results.slice(0, 3);
         if (!top.length) { banner.style.display = 'none'; return; }
@@ -42,7 +42,7 @@ Temas.init();
           results = results.concat(d.results);
           if (!d.next) break;
         }
-        todosDeals = results;
+        todosDeals = FiltroNsfw.filtrar(results);
         cachear(todosDeals);
         document.getElementById('contagemDeals').textContent = `${todosDeals.length} jogos em promoção`;
         renderDeals();
@@ -78,13 +78,4 @@ Temas.init();
 
     carregarBanner();
     carregarTodos();
-
-    // config responsividade da navbar
-    const menuBtn = document.getElementById("menuMobileBtn");
-    const navLinks = document.getElementById("navLinks");
-
-    if (menuBtn && navLinks) {
-      menuBtn.addEventListener("click", () => {
-        navLinks.classList.toggle("ativo");
-      });
-    }
+    initNavbarMobile();

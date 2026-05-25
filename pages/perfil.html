@@ -14,7 +14,6 @@
 
   <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/perfil.css">
-  <link rel="stylesheet" href="../css/avatar-editor.css">
 </head>
 <body>
 
@@ -49,56 +48,79 @@
 <div class="paginaWrapper">
 <main class="layoutPerfil">
 
-  <!-- CABEÇALHO -->
-  <div class="cardCabecalhoPerfil">
-    <div class="bannerPerfil" id="bannerPerfil"></div>
-    <div class="conteudoCabecalhoPerfil">
+  <!-- ===== HERO DO PERFIL ===== -->
+  <div class="perfilHero" id="perfilHero">
+    <!-- Banner clicável para editar -->
+    <div class="perfilBanner" id="perfilBanner">
+      <div class="perfilBannerOverlay"></div>
+      <button class="btnEditarBanner" id="btnEditarBanner" title="Trocar banner">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        Trocar Banner
+      </button>
+      <input type="file" id="inputBanner" accept="image/*" style="display:none">
+    </div>
 
-      <!-- Avatar do cabeçalho — clique abre o editor -->
-      <div class="wrapAvatar">
+    <!-- Área do avatar + info -->
+    <div class="perfilIdentidade">
+      <!-- Avatar -->
+      <div class="wrapAvatar" id="wrapAvatar">
         <img class="avatarPerfil" id="avatarPerfil" data-avatar
-             src="https://placehold.co/96x96/0d1525/4a5e80?text=G" alt="Avatar">
-        <button class="btnEditarAvatar" id="avBtnEditarAvatar"
-                title="Trocar foto" aria-label="Trocar foto de perfil">📷</button>
+             src="https://placehold.co/110x110/0d1525/4a5e80?text=G" alt="Avatar">
+        <button class="btnEditarAvatar" id="avBtnEditarAvatar" title="Trocar foto">
+          📷
+        </button>
         <input type="file" id="avInputFile" accept="image/*" style="display:none">
       </div>
 
-      <!-- Nome + stats -->
-      <div class="infoPerfil">
-        <div class="nomePerfil" id="nomePerfil">Gamer</div>
-        <input class="inputNome" id="inputNome" type="text"
-               maxlength="32" placeholder="Seu nome..." spellcheck="false">
+      <!-- Nome + handle + stats -->
+      <div class="perfilInfo">
+        <div class="perfilNomeRow">
+          <h1 class="nomePerfil" id="nomePerfil">Gamer</h1>
+          <span class="badgeEditando" id="badgeEditando">
+            <span class="pontoPiscante"></span>Editando
+          </span>
+        </div>
         <div class="handlePerfil" id="handlePerfil">@gamer · GameVault</div>
+
         <div class="statsPerfil">
           <div class="stat">
             <span class="valor" id="statFavs">0</span>
             <span class="rotulo">Favoritos</span>
           </div>
+          <div class="statDivider"></div>
           <div class="stat">
             <span class="valor" id="statReviews">0</span>
             <span class="rotulo">Reviews</span>
           </div>
+          <div class="statDivider"></div>
           <div class="stat">
             <span class="valor" id="statJogando">0</span>
             <span class="rotulo">Jogando</span>
           </div>
+          <div class="statDivider"></div>
+          <div class="stat">
+            <span class="valor" id="statConcluidos">0</span>
+            <span class="rotulo">Concluídos</span>
+          </div>
+          <div class="statDivider"></div>
+          <div class="stat">
+            <span class="valor" id="statQueroJogar">0</span>
+            <span class="rotulo">Lista</span>
+          </div>
         </div>
       </div>
 
-      <!-- Botões editar -->
-      <div class="acoesPerfilTopo">
-        <span class="badgeEditando" id="badgeEditando">
-          <span class="pontoPiscante"></span>Editando
-        </span>
-        <button class="btn btnSecundario btnSm" id="btnEditar">✏️ Editar perfil</button>
-        <button class="btn btnPrimario   btnSm" id="btnSalvar"   style="display:none">💾 Salvar</button>
-        <button class="btn btnSecundario btnSm" id="btnCancelar" style="display:none">✕ Cancelar</button>
+      <!-- Botão editar -->
+      <div class="perfilAcoes">
+        <button class="btn btnSecundario btnSm" id="btnEditar">✏️ Editar Perfil</button>
       </div>
-
     </div>
   </div>
 
-  <!-- EDITOR DE AVATAR — fora do cabeçalho, oculto por padrão -->
+  <!-- ===== EDITOR DE AVATAR (canvas) ===== -->
   <div class="avEditor" id="avEditor">
     <div class="avCanvasWrap">
       <div class="avClip" id="avClip">
@@ -141,81 +163,181 @@
     </div>
   </div>
 
-  <!-- TABS -->
-  <div class="tabsPerfil">
-    <button class="tabPerfil ativo" data-tab="sobre">Sobre</button>
-    <button class="tabPerfil"       data-tab="favoritos">Favoritos</button>
-    <button class="tabPerfil"       data-tab="reviews">Reviews</button>
-  </div>
+  <!-- ===== TABS ===== -->
+  <nav class="tabsPerfil" role="tablist" aria-label="Seções do perfil">
+    <button class="tabPerfil ativo" data-tab="sobre"     role="tab" aria-selected="true">Sobre</button>
+    <button class="tabPerfil"       data-tab="favoritos" role="tab" aria-selected="false">❤️ Favoritos</button>
+    <button class="tabPerfil"       data-tab="reviews"   role="tab" aria-selected="false">✍️ Reviews</button>
+    <button class="tabPerfil"       data-tab="jogando"     role="tab" aria-selected="false">🎮 Jogando</button>
+    <button class="tabPerfil"       data-tab="concluidos"  role="tab" aria-selected="false">🏆 Concluídos</button>
+    <button class="tabPerfil"       data-tab="queroJogar"  role="tab" aria-selected="false">📌 Quero jogar</button>
+  </nav>
 
-  <!-- TAB: SOBRE -->
-  <div class="conteudoTab ativo" id="tab-sobre">
+  <!-- ===== TAB: SOBRE ===== -->
+  <div class="conteudoTab ativo" id="tab-sobre" role="tabpanel">
+
+    <!-- Biografia -->
     <div class="cardSecao">
       <div class="cabecalhoSecao">
         <span class="tituloSecao">📝 Biografia</span>
       </div>
       <p class="textoBio vazio" id="textoBio">
-        Nenhuma bio ainda. Clique em "Editar perfil" para adicionar.
+        Nenhuma bio ainda. Clique em "Editar Perfil" para adicionar.
       </p>
-      <textarea class="textareaBio" id="textareaBio" maxlength="300"
-                placeholder="Fale um pouco sobre você, seus jogos favoritos..."></textarea>
-      <div class="contadorBio" id="contadorBio">0 / 300</div>
     </div>
+
+    <!-- Configurações -->
     <div class="cardSecao">
       <div class="cabecalhoSecao">
-        <span class="tituloSecao">🎨 Tema da Interface</span>
+        <span class="tituloSecao">⚙️ Preferências</span>
       </div>
-      <div class="gridTemas" id="gridTemas">
-        <button class="btnTema" data-tema="padrao">
-          <span class="temaCor" style="background:#3b82f6"></span>Deep Space
-        </button>
-        <button class="btnTema" data-tema="neon">
-          <span class="temaCor" style="background:#a855f7"></span>Neon Cyber
-        </button>
-        <button class="btnTema" data-tema="sunset">
-          <span class="temaCor" style="background:#f97316"></span>Sunset
-        </button>
-        <button class="btnTema" data-tema="forest">
-          <span class="temaCor" style="background:#22c55e"></span>Floresta
-        </button>
-        <button class="btnTema" data-tema="light">
-          <span class="temaCor" style="background:#e8edf8;border:1px solid #a0b4d8"></span>Claro
-        </button>
+
+      <!-- Tema -->
+      <div class="prefGrupo">
+        <div class="prefLabelGrupo">🎨 Tema da Interface</div>
+        <div class="gridTemas" id="gridTemas">
+          <button class="btnTema" data-tema="padrao">
+            <span class="temaCor" style="background:#3b82f6"></span>Deep Space
+          </button>
+          <button class="btnTema" data-tema="neon">
+            <span class="temaCor" style="background:#a855f7"></span>Neon Cyber
+          </button>
+          <button class="btnTema" data-tema="sunset">
+            <span class="temaCor" style="background:#f97316"></span>Sunset
+          </button>
+          <button class="btnTema" data-tema="forest">
+            <span class="temaCor" style="background:#22c55e"></span>Floresta
+          </button>
+          <button class="btnTema" data-tema="light">
+            <span class="temaCor" style="background:#e8edf8;border:1px solid #a0b4d8"></span>Claro
+          </button>
+        </div>
+      </div>
+
+      <!-- Toggle conteúdo adulto -->
+      <div class="prefGrupo prefGrupoToggle">
+        <div class="prefToggleInfo">
+          <div class="prefLabelGrupo">🔞 Mostrar conteúdo adulto (+18)</div>
+          <div class="prefDescricao">
+            Exibe jogos com conteúdo sexual explícito (hentai, eróticos, NSFW).
+            Jogos violentos como GTA e Doom não são afetados.
+          </div>
+        </div>
+        <label class="toggleSwitch" for="toggleAdultos" aria-label="Mostrar conteúdo adulto">
+          <input type="checkbox" id="toggleAdultos" role="switch">
+          <span class="toggleSlider"></span>
+        </label>
       </div>
     </div>
+
   </div>
 
-  <!-- TAB: FAVORITOS -->
-  <div class="conteudoTab" id="tab-favoritos">
+  <!-- ===== TAB: FAVORITOS ===== -->
+  <div class="conteudoTab" id="tab-favoritos" role="tabpanel">
     <div class="cardSecao">
       <div class="cabecalhoSecao">
         <span class="tituloSecao">❤️ Jogos Favoritos</span>
-        <span id="contagemFavs" style="font-size:12px;color:var(--textMuted);font-family:var(--fontMono)"></span>
+        <span id="contagemFavs" class="badgeContagem"></span>
       </div>
       <div class="gridFavoritos" id="gridFavoritos"></div>
     </div>
   </div>
 
-  <!-- TAB: REVIEWS -->
-  <div class="conteudoTab" id="tab-reviews">
+  <!-- ===== TAB: REVIEWS ===== -->
+  <div class="conteudoTab" id="tab-reviews" role="tabpanel">
     <div class="cardSecao">
       <div class="cabecalhoSecao">
         <span class="tituloSecao">✍️ Minhas Reviews</span>
-        <span id="contagemReviews" style="font-size:12px;color:var(--textMuted);font-family:var(--fontMono)"></span>
+        <span id="contagemReviews" class="badgeContagem"></span>
       </div>
       <div id="listaReviews"></div>
+    </div>
+  </div>
+
+  <!-- ===== TAB: JOGANDO ===== -->
+  <div class="conteudoTab" id="tab-jogando" role="tabpanel">
+    <div class="cardSecao">
+      <div class="cabecalhoSecao">
+        <span class="tituloSecao">🎮 Jogando Agora</span>
+        <span id="contagemJogando" class="badgeContagem"></span>
+      </div>
+      <div class="gridFavoritos" id="gridJogando"></div>
+    </div>
+  </div>
+
+  <!-- ===== TAB: CONCLUÍDOS ===== -->
+  <div class="conteudoTab" id="tab-concluidos" role="tabpanel">
+    <div class="cardSecao">
+      <div class="cabecalhoSecao">
+        <span class="tituloSecao">🏆 Jogos Concluídos</span>
+        <span id="contagemConcluidos" class="badgeContagem"></span>
+      </div>
+      <div class="gridFavoritos" id="gridConcluidos"></div>
+    </div>
+  </div>
+
+  <!-- ===== TAB: QUERO JOGAR ===== -->
+  <div class="conteudoTab" id="tab-queroJogar" role="tabpanel">
+    <div class="cardSecao">
+      <div class="cabecalhoSecao">
+        <span class="tituloSecao">📌 Quero Jogar</span>
+        <span id="contagemQueroJogar" class="badgeContagem"></span>
+      </div>
+      <div class="gridFavoritos" id="gridQueroJogar"></div>
     </div>
   </div>
 
 </main>
 </div>
 
+<!-- ===== MODAL DE EDIÇÃO DE PERFIL ===== -->
+<div class="modalOverlay" id="modalEdicaoPerfil" style="display:none" role="dialog" aria-modal="true" aria-labelledby="tituloModalEdicao">
+  <div class="modalEdicao">
+    <div class="modalEdicaoHeader">
+      <h2 class="modalEdicaoTitulo" id="tituloModalEdicao">✏️ Editar Perfil</h2>
+      <button class="btnFecharModalEdicao" id="btnFecharModalEdicao" aria-label="Fechar">✕</button>
+    </div>
+
+    <div class="modalEdicaoCorpo">
+      <!-- Preview do avatar -->
+      <div class="edicaoAvatarPreview">
+        <img id="previewAvatarModal" src="https://placehold.co/80x80/0d1525/4a5e80?text=G" alt="Preview avatar">
+        <div class="edicaoAvatarInfo">
+          <div class="edicaoAvatarNome" id="previewNomeModal">Gamer</div>
+          <div class="edicaoAvatarHandle" id="previewHandleModal">@gamer · GameVault</div>
+        </div>
+      </div>
+
+      <!-- Nickname -->
+      <div class="campoEdicao">
+        <label class="labelEdicao" for="inputNomeModal">Nickname</label>
+        <input type="text" class="inputEdicao" id="inputNomeModal"
+               maxlength="32" placeholder="Seu nome..." spellcheck="false">
+        <span class="contadorCampo" id="contadorNome">0/32</span>
+      </div>
+
+      <!-- Bio -->
+      <div class="campoEdicao">
+        <label class="labelEdicao" for="textareaBioModal">Bio</label>
+        <textarea class="textareaEdicao" id="textareaBioModal"
+                  maxlength="300" placeholder="Fale sobre você, seus jogos favoritos..."></textarea>
+        <span class="contadorCampo" id="contadorBio">0/300</span>
+      </div>
+    </div>
+
+    <div class="modalEdicaoFooter">
+      <button class="btn btnSecundario" id="btnCancelarEdicao">Cancelar</button>
+      <button class="btn btnPrimario"   id="btnSalvarEdicao">💾 Salvar</button>
+    </div>
+  </div>
+</div>
+
 <div id="toastContainer"></div>
 
 <script src="../js/storage.js"></script>
+<script src="../js/filtroNsfw.js"></script>
 <script src="../js/api.js"></script>
 <script src="../js/ui.js"></script>
-<script src="../js/avatar-editor.js"></script>
 <script src="../js/perfil.js"></script>
 
 </body>

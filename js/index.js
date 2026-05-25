@@ -89,7 +89,7 @@ async function carregarHero()//carrega os jogo asincronamente?(n sei como escrev
   {
     const d = await Api.getPopular(1, 6);//busca na api primeiro
 
-    heroJogos = d.results;
+    heroJogos = d.results.filter(g => !FiltroNsfw.ehAdulto(g));
 
     cachear(heroJogos);// guarda em memoria pra n ficar buscabdi toda gr essa mnerda
 

@@ -70,8 +70,9 @@ function cardHTML(g)
 
 // Renderizar cards em um container
 function renderCards(el, jogos, append = false) {
-  cachear(jogos);
-  const html = jogos.map(cardHTML).join('');
+  const jogosFiltrados = FiltroNsfw.filtrar(jogos);
+  cachear(jogosFiltrados);
+  const html = jogosFiltrados.map(cardHTML).join('');
   if (append) el.insertAdjacentHTML('beforeend', html);
   else el.innerHTML = html;
   bindCards(el);
@@ -118,6 +119,8 @@ function abrirModal(g) {
   const minhaNota = Storage.getRating(g.id);
   const isFav = Storage.isFavorite(g.id);
   const isPlaying = Storage.isPlaying(g.id);
+  const isConcluido = Storage.isConcluido(g.id);
+  const isQueroJogar = Storage.isQueroJogar(g.id);
 
   let precoSec = '';
   if (g.discount > 0) precoSec = `<div class="modalPreco">
@@ -157,6 +160,8 @@ function abrirModal(g) {
         <div class="modalAcoes">
           <button class="btn btnPrimario" id="btnModalFav">${isFav ? '♥ Desfavoritar' : '♡ Favoritar'}</button>
           <button class="btn btnSecundario" id="btnModalPlaying">${isPlaying ? '✓ Jogando' : '🎮 Jogando agora'}</button>
+          <button class="btn btnSecundario" id="btnModalConcluido">${isConcluido ? '🏆 Concluído' : '🏁 Marcar concluído'}</button>
+          <button class="btn btnSecundario" id="btnModalQueroJogar">${isQueroJogar ? '📌 Na lista' : '📌 Quero jogar'}</button>
           <button class="btn btnSecundario" id="btnModalReview">✍️ Review</button>
         </div>
         <div class="reviewInline" id="reviewInlineModal">
@@ -215,6 +220,34 @@ function abrirModal(g) {
     }
   });
 
+  // Concluído
+  overlay.querySelector('#btnModalConcluido').addEventListener('click', () => {
+    const btn = overlay.querySelector('#btnModalConcluido');
+    if (Storage.isConcluido(g.id)) {
+      Storage.removeConcluido(g.id);
+      btn.textContent = '🏁 Marcar concluído';
+      toast('Removido de concluídos');
+    } else {
+      Storage.addConcluido(g);
+      btn.textContent = '🏆 Concluído';
+      toast('🏆 Marcado como concluído!', 'sucesso');
+    }
+  });
+
+  // Quero jogar
+  overlay.querySelector('#btnModalQueroJogar').addEventListener('click', () => {
+    const btn = overlay.querySelector('#btnModalQueroJogar');
+    if (Storage.isQueroJogar(g.id)) {
+      Storage.removeQueroJogar(g.id);
+      btn.textContent = '📌 Quero jogar';
+      toast('Removido da lista');
+    } else {
+      Storage.addQueroJogar(g);
+      btn.textContent = '📌 Na lista';
+      toast('📌 Adicionado à lista!', 'sucesso');
+    }
+  });
+
   // Review
   const reviewBox = overlay.querySelector('#reviewInlineModal');
   overlay.querySelector('#btnModalReview').addEventListener('click', () => {
@@ -254,8 +287,9 @@ function initBuscaNavbar() {
     timer = setTimeout(async () => {
       try {
         const jogos = await Api.buscar(q);
-        cachear(jogos);
-        results.innerHTML = jogos.slice(0, 6).map(g => `
+        const jogosFiltrados = FiltroNsfw.filtrar(jogos);
+        cachear(jogosFiltrados);
+        results.innerHTML = jogosFiltrados.slice(0, 6).map(g => `
           <div class="itemResultado" data-id="${g.id}">
             <img src="${g.background_image || 'https://placehold.co/48x32/0d1525/4a5e80?text=?'}" alt="${g.name}" onerror="this.src='https://placehold.co/48x32'">
             <div>
@@ -284,4 +318,34 @@ function atualizarAvatarNavbar() {
   const p = Storage.getProfile();
   const nav = document.getElementById('avatarNavbar');
   if (nav) nav.src = p.avatar || `https://placehold.co/36x36/0d1525/4a5e80?text=${(p.nickname || 'G')[0].toUpperCase()}`;
+}
+
+// Inicializar menu mobile e busca mobile (para páginas SEM busca local)
+function initNavbarMobile() {
+  const menuBtn  = document.getElementById('menuMobileBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (menuBtn && navLinks) {
+    menuBtn.addEventListener('click', () => navLinks.classList.toggle('ativo'));
+    // Fechar menu ao clicar em link
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('ativo'));
+    });
+  }
+
+  const searchBtn = document.getElementById('searchMobileBtn');
+  const navSearch = document.querySelector('.navSearch');
+  if (searchBtn && navSearch) {
+    searchBtn.addEventListener('click', () => {
+      navSearch.classList.toggle('ativo');
+      if (navSearch.classList.contains('ativo')) {
+        setTimeout(() => navSearch.querySelector('input')?.focus(), 200);
+      }
+    });
+    // Fechar busca ao clicar fora
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.navSearch') && !e.target.closest('.searchMobileBtn')) {
+        navSearch.classList.remove('ativo');
+      }
+    });
+  }
 }

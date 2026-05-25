@@ -67,3 +67,92 @@ const Api = {
     return d.results.map(this.enriquecer);
   },
 };
+
+/* ===== filtroNsfw.js =====
+   Filtro de conteúdo adulto explícito/pornográfico.
+   NÃO bloqueia jogos 18+ por violência ou sangue.
+   Depende de: storage.js (Storage)
+================================================================ */
+
+const FiltroNsfw = (() => {
+
+  // Tags/gêneros da API RAWG que indicam conteúdo sexual explícito
+  const TAGS_ADULTAS = [
+    'hentai', 'eroge', 'erotic', 'erotica', 'adult', 'nsfw',
+    'nudity', 'sexual content', 'explicit', 'pornographic',
+    'adult only', 'sexually explicit', 'ecchi', 'lewd',
+    '18+', 'nude', 'sex', 'xxx', 'porn', 'eroge'
+  ];
+
+  // Palavras-chave no nome/descrição do jogo que indicam conteúdo adulto
+  const PALAVRAS_BLOQUEADAS = [
+    'hentai', 'eroge', 'erotic', 'erotica', 'nsfw', 'nude',
+    'naked', 'xxx', 'porn', 'lewd', 'ecchi', 'adult game',
+    'adult visual novel', 'dating sim adult', 'jogo adulto',
+    'sexo', 'simulador sexual', 'sexual simulator'
+  ];
+
+  // Slugs/IDs de gêneros da RAWG que são explicitamente adultos
+  // (a API tem o gênero "adult" com slug "adult")
+  const GENEROS_ADULTOS = ['adult'];
+
+  // Tags da API RAWG (campo tags[]) associadas a NSFW
+  const TAGS_RAWG_ADULTAS = [
+    'adult', 'adult content', 'hentai', 'eroge', 'nsfw',
+    'mature content', 'nude', 'nudity', 'sexual content',
+    'erotic', 'lewd', 'ecchi', 'adult only'
+  ];
+
+  /* ----- lógica de detecção ----- */
+  function _nomeSuspeito(nome = '') {
+    const n = nome.toLowerCase();
+    return PALAVRAS_BLOQUEADAS.some(p => n.includes(p));
+  }
+
+  function _temGeneroAdulto(genres = []) {
+    return genres.some(g =>
+      GENEROS_ADULTOS.includes((g.slug || '').toLowerCase()) ||
+      GENEROS_ADULTOS.includes((g.name || '').toLowerCase())
+    );
+  }
+
+  function _temTagAdulta(tags = []) {
+    return tags.some(t => {
+      const name = (t.name || t.slug || '').toLowerCase();
+      return TAGS_RAWG_ADULTAS.some(a => name.includes(a));
+    });
+  }
+
+  function _esrbAdulto(esrb) {
+    // ESRB Adults Only = rating de conteúdo explicitamente sexual
+    if (!esrb) return false;
+    const slug = (esrb.slug || esrb.name || '').toLowerCase();
+    return slug === 'adults-only' || slug === 'ao';
+  }
+
+  /* ----- API pública ----- */
+  return {
+    // Verifica se um jogo deve ser ocultado
+    ehAdulto(jogo) {
+      if (!jogo) return false;
+      return (
+        _nomeSuspeito(jogo.name) ||
+        _temGeneroAdulto(jogo.genres || []) ||
+        _temTagAdulta(jogo.tags || []) ||
+        _esrbAdulto(jogo.esrb_rating)
+      );
+    },
+
+    // Filtra um array de jogos removendo os adultos (se filtro ativo)
+    filtrar(jogos = []) {
+      if (Storage.getMostrarAdultos()) return jogos; // filtro desligado → passa tudo
+      return jogos.filter(g => !this.ehAdulto(g));
+    },
+
+    // Atalho: mostra conteúdo adulto?
+    mostrarAdultos() {
+      return Storage.getMostrarAdultos();
+    },
+  };
+})();
+

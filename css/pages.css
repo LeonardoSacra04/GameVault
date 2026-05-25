@@ -34,7 +34,7 @@
 .layoutListing {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 40px 20px;
+  padding: 40px clamp(16px, 4vw, 40px) 20px;
 }
 
 /* Barra de busca */
@@ -88,7 +88,7 @@
 /* ===== DESTAQUE (hero interno) ===== */
 .destaqueRelease {
   position: relative;
-  height: 300px;
+  height: clamp(200px, 25vw, 300px);
   border-radius: var(--radiusLg);
   overflow: hidden;
   border: 1px solid var(--border);
@@ -233,7 +233,7 @@
 /* ===== DESCONTOS — BANNER ===== */
 .bannerDescontos {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 16px;
   margin-bottom: 40px;
 }
@@ -313,15 +313,15 @@
   display: flex;
   max-width: 1600px;
   margin: 0 auto;
-  padding: 40px 32px;
+  padding: 40px clamp(16px, 3vw, 32px);
   gap: 0;
   min-height: calc(100vh - 64px);
 }
 
 .sidebarFiltros {
-  width: 230px;
+  width: clamp(180px, 18vw, 230px);
   flex-shrink: 0;
-  padding-right: 28px;
+  padding-right: clamp(12px, 2vw, 28px);
   position: sticky;
   top: 88px;
   align-self: flex-start;
@@ -413,9 +413,10 @@
   margin: 0 auto;
   padding: 40px 32px;
   align-items: flex-start;
+  overflow: hidden;
 }
 
-.feedComunidade { flex: 1; min-width: 0; }
+.feedComunidade { flex: 1; min-width: 0; overflow: hidden; }
 
 .painelNovaReview {
   background: var(--bgCard);
@@ -424,6 +425,7 @@
   padding: 22px;
   margin-bottom: 22px;
   animation: fadeIn 0.3s ease;
+  overflow: hidden;
 }
 
 .tituloPainel {
@@ -512,6 +514,8 @@
   margin-bottom: 14px;
   transition: border-color var(--transition);
   animation: fadeIn 0.3s ease;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .cardReview:hover { border-color: var(--borderHover); }
@@ -521,6 +525,8 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 12px;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .avatarReview {
@@ -531,7 +537,12 @@
   flex-shrink: 0;
 }
 
-.nomeUsuario { font-size: 14px; font-weight: 700; }
+.nomeUsuario {
+  font-size: 14px;
+  font-weight: 700;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
 .dataReview { font-size: 12px; color: var(--textMuted); }
 .notaReview { color: var(--orange); font-size: 14px; margin-left: auto; }
 
@@ -543,15 +554,26 @@
   border-radius: var(--radiusSm);
   padding: 8px 10px;
   margin-bottom: 10px;
+  min-width: 0;
+  overflow: hidden;
 }
 .jogoReview img { width: 52px; height: 36px; border-radius: 3px; object-fit: cover; }
-.jogoReview .nome { font-size: 13px; font-weight: 600; }
+.jogoReview .nome {
+  font-size: 13px;
+  font-weight: 600;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
+}
 
 .textoReview {
   font-size: 14px;
   color: var(--textSub);
   line-height: 1.7;
   margin-bottom: 12px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
 }
 
 .acoesReview {
@@ -588,13 +610,14 @@
 
 /* Sidebar comunidade */
 .sidebarComunidade {
-  width: 270px;
+  width: clamp(220px, 22vw, 270px);
   flex-shrink: 0;
   position: sticky;
   top: 84px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  min-width: 0;
 }
 
 .cardSidebar {
@@ -631,6 +654,7 @@
   border-bottom: 1px solid var(--border);
   cursor: pointer;
   transition: opacity var(--transition);
+  overflow: hidden
 }
 .jogoSidebar:last-child { border-bottom: none; }
 .jogoSidebar:hover { opacity: 0.7; }
@@ -855,4 +879,88 @@
   .listaRanking .barraRanking { display: none; }
   .layoutPerfil { padding: 20px 16px; }
   .statsPerfil { gap: 16px; }
+}
+
+/* ===== REMOVE busca duplicada nas páginas com busca própria ===== */
+
+.temBuscaLocal .navSearch,
+.temBuscaLocal .searchMobileBtn {
+  display: none !important;
+}
+
+/* No desktop e tablet, a navSearch da navbar SEMPRE fica visível */
+@media (min-width: 769px) {
+  .navSearch {
+    position: relative !important;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    top: auto !important;
+    left: auto !important;
+    width: auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+}
+
+/* ===== FIX: oculta botão de busca mobile nas páginas com busca própria ===== */
+/* Evita 2 barras de pesquisa visíveis ao mesmo tempo */
+.temBuscaLocal .searchMobileBtn {
+  display: none !important;
+}
+
+/* ===== RESPONSIVIDADE ADICIONAL ===== */
+
+/* Ultrawide */
+@media (min-width: 1800px) {
+  .layoutListing { max-width: 1600px; }
+  .layoutComunidade { max-width: 1500px; }
+}
+
+/* Tablet portrait */
+@media (max-width: 768px) {
+  .bannerDescontos {
+    grid-template-columns: 1fr;
+  }
+
+  .cardDestaqueDeal {
+    height: 170px;
+  }
+
+  .layoutComunidade {
+    padding: 20px 16px;
+  }
+
+  .cabecalhoReview {
+    flex-wrap: wrap;
+  }
+
+  .notaReview {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .acoesReview {
+    flex-wrap: wrap;
+  }
+}
+
+/* Telas muito pequenas */
+@media (max-width: 380px) {
+  .gridJogos {
+    grid-template-columns: 1fr;
+  }
+
+  .gridFavoritos {
+    grid-template-columns: 1fr;
+  }
+
+  .tabsPerfil {
+    gap: 2px;
+  }
+
+  .tabPerfil {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
 }

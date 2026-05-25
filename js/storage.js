@@ -16,6 +16,16 @@ const Storage = {
   removePlaying: (id) => Storage.set('gv_playing', Storage.getPlaying().filter(g => g.id !== id)),
   isPlaying: (id) => Storage.getPlaying().some(g => g.id === id),
 
+  getConcluidos: () => Storage.get('gv_concluidos', []),
+  addConcluido: (g) => { const c = Storage.getConcluidos(); if (!c.find(x => x.id === g.id)) { c.push(g); Storage.set('gv_concluidos', c); } },
+  removeConcluido: (id) => Storage.set('gv_concluidos', Storage.getConcluidos().filter(g => g.id !== id)),
+  isConcluido: (id) => Storage.getConcluidos().some(g => g.id === id),
+
+  getQueroJogar: () => Storage.get('gv_quero_jogar', []),
+  addQueroJogar: (g) => { const q = Storage.getQueroJogar(); if (!q.find(x => x.id === g.id)) { q.push(g); Storage.set('gv_quero_jogar', q); } },
+  removeQueroJogar: (id) => Storage.set('gv_quero_jogar', Storage.getQueroJogar().filter(g => g.id !== id)),
+  isQueroJogar: (id) => Storage.getQueroJogar().some(g => g.id === id),
+
   getReviews: () => Storage.get('gv_reviews', []),
   addReview: (r) => { const reviews = Storage.getReviews(); reviews.unshift({ ...r, id: Date.now(), date: new Date().toISOString(), likes: 0 }); Storage.set('gv_reviews', reviews); },
   removeReview: (id) => Storage.set('gv_reviews', Storage.getReviews().filter(r => r.id !== id)),
@@ -26,6 +36,10 @@ const Storage = {
   // Tema — chave: 'gv_theme', valor padrão: 'padrao'
   getTheme: () => Storage.get('gv_theme', 'padrao'),
   setTheme: (t) => Storage.set('gv_theme', t),
+
+  // Conteúdo adulto — desligado por padrão
+  getMostrarAdultos: () => Storage.get('gv_mostrar_adultos', false),
+  setMostrarAdultos: (v) => Storage.set('gv_mostrar_adultos', !!v),
 };
 
 /* ===== Temas ===== */

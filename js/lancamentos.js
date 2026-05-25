@@ -9,7 +9,7 @@ Temas.init();
 
     // Destaque
     Api.getLancamentos(1, 1).then(d => {
-      const g = d.results[0];
+      const g = FiltroNsfw.filtrar(d.results)[0];
       const el = document.getElementById('destaqueRelease');
       if (!g) { el.style.display = 'none'; return; }
       cachear(g);
@@ -56,13 +56,4 @@ Temas.init();
     });
 
     carregarPagina();
-
-    // config responsividade da navbar
-    const menuBtn = document.getElementById("menuMobileBtn");
-    const navLinks = document.getElementById("navLinks");
-
-    if (menuBtn && navLinks) {
-      menuBtn.addEventListener("click", () => {
-        navLinks.classList.toggle("ativo");
-      });
-    }
+    initNavbarMobile();

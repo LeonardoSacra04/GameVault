@@ -204,3 +204,4 @@ Temas.init();
         navLinks.classList.toggle("ativo");
       });
     }
+    initNavbarMobile();

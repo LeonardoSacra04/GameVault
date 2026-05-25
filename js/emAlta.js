@@ -8,7 +8,7 @@ Temas.init();
 
     // Ranking
     Api.getTrending(1, 10).then(d => {
-      const jogos = d.results;
+      const jogos = FiltroNsfw.filtrar(d.results);
       cachear(jogos);
       const maxAdded = Math.max(...jogos.map(g => g.added || 0));
       const lista = document.getElementById('listaRanking');
@@ -61,3 +61,4 @@ Temas.init();
         navLinks.classList.toggle("ativo");
       });
     }
+    initNavbarMobile();
