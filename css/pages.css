@@ -388,7 +388,7 @@
 }
 .checkFiltro input { accent-color: var(--accent); }
 
-.areaCatalogo { flex: 1; min-width: 0; }
+.areaCatalogo { flex: 1; min-width: 0; margin-left: 20px;}
 
 .cabecalhoCatalogo {
   display: flex;
