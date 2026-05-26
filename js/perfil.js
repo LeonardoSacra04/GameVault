@@ -104,18 +104,37 @@ const AvatarEditor = (() => {
   }
 
   function salvar() {
-    const dataUrl = canvas.toDataURL('image/jpeg', QUALITY);
-    try {
-      Storage.setProfile({ avatar: dataUrl });
-    } catch (e) {
-      toast('Imagem muito grande para salvar localmente.', 'erro');
-      return;
-    }
-    document.querySelectorAll('[data-avatar]').forEach(el => { el.src = dataUrl; });
-    editor.classList.remove('av-show');
-    img = null;
-    toast('✅ Foto de perfil salva!', 'sucesso');
+  const dataUrl = canvas.toDataURL('image/jpeg', QUALITY);
+
+  try {
+    Storage.setProfile({ avatar: dataUrl });
+  } catch (e) {
+    toast('Imagem muito grande para salvar localmente.', 'erro');
+    return;
   }
+
+  // Atualiza TODOS os avatares
+  document.querySelectorAll('[data-avatar]').forEach(el => {
+    el.src = dataUrl;
+  });
+
+  // Atualiza preview do modal
+  const previewModal = document.getElementById('previewAvatarModal');
+  if (previewModal) {
+    previewModal.src = dataUrl;
+  }
+
+  // Atualiza avatar navbar
+  const navAvatar = document.getElementById('avatarNavbar');
+  if (navAvatar) {
+    navAvatar.src = dataUrl;
+  }
+
+  editor.classList.remove('av-show');
+  img = null;
+
+  toast('✅ Foto de perfil salva!', 'sucesso');
+}
 
   function cancelar() {
     editor.classList.remove('av-show');
@@ -271,6 +290,11 @@ function _bindBanner() {
 function _bindBtnEditar() {
   document.getElementById('btnEditar')?.addEventListener('click', _abrirModalEdicao);
 }
+
+document.querySelector('.previewAvatarWrap')
+  ?.addEventListener('click', () => {
+    document.getElementById('avInputFile')?.click();
+  });
 
 /* ============================================================
    MODAL DE EDIÇÃO
