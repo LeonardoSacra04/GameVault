@@ -113,21 +113,18 @@ const AvatarEditor = (() => {
     return;
   }
 
-  // Atualiza TODOS os avatares
   document.querySelectorAll('[data-avatar]').forEach(el => {
     el.src = dataUrl;
   });
 
-  // Atualiza preview do modal
   const previewModal = document.getElementById('previewAvatarModal');
   if (previewModal) {
     previewModal.src = dataUrl;
   }
 
-  // Atualiza avatar navbar
   const navAvatar = document.getElementById('avatarNavbar');
   if (navAvatar) {
-    navAvatar.src = dataUrl;
+    navAvatar.setAttribute('src', dataUrl);
   }
 
   editor.classList.remove('av-show');
