@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br" data-theme="">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,8 @@
   <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/pages.css">
 </head>
-<body class="temBuscaLocal">
+
+<body class="temBuscaLocal" id="topo">
 
   <header>
     <nav class="navbar">
@@ -28,7 +30,10 @@
         🔍
       </button>
       <div class="navSearch">
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.35-4.35" />
+        </svg>
         <input type="text" id="buscaNavbar" placeholder="Buscar jogos..." autocomplete="off">
         <div class="resultsBusca" id="resultadosBusca"></div>
       </div>
@@ -53,7 +58,10 @@
             <option value="nota">Melhor avaliação</option>
           </select>
           <div class="barraBusca">
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
             <input type="text" id="buscaDeals" placeholder="Buscar promoções...">
           </div>
         </div>
@@ -61,7 +69,9 @@
 
       <!-- Banner top deals -->
       <div class="bannerDescontos" id="bannerDeals">
-        <div class="centralizador" style="grid-column:1/-1"><div class="spinner"></div></div>
+        <div class="centralizador" style="grid-column:1/-1">
+          <div class="spinner"></div>
+        </div>
       </div>
 
       <div class="secaoHeader" style="margin-top:8px">
@@ -87,10 +97,18 @@
     </footer>
   </div>
 
+  <a href="#topo" id="btnTopo" class="btnTopo" title="Voltar ao topo" aria-label="Voltar ao topo">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M6 14l6-6 6 6"></path>
+  </svg>
+</a>
+
+
   <script src="../js/storage.js"></script>
   <script src="../js/filtroNsfw.js"></script>
   <script src="../js/api.js"></script>
   <script src="../js/ui.js"></script>
   <script src="../js/descontos.js"></script>
 </body>
+
 </html>
