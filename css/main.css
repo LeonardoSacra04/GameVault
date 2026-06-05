@@ -750,7 +750,7 @@ footer a { color: var(--accent); }
   .menuMobileBtn {
     display: block;
     position: fixed;
-    top: 16px;
+    top: 12px;
     left: 16px;
     z-index: 9999;
   }
@@ -802,7 +802,7 @@ footer a { color: var(--accent); }
 
   .navSearch {
     position: fixed;
-    top: 72px;
+    top: 64px;
     left: 0;
     width: 100%;
     padding: 14px;
@@ -823,7 +823,12 @@ footer a { color: var(--accent); }
   }
 
   .navSearch input {
+    padding-left: 36px;
     width: 100%;
+  }
+
+  .navSearch svg {
+    margin-left: 18px;
   }
 
   .navSearch input:focus {

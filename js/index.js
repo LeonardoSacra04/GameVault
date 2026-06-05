@@ -187,6 +187,10 @@ const navLinks = document.getElementById("navLinks");
 if (menuBtn && navLinks) {
   menuBtn.addEventListener("click", () => {
     navLinks.classList.toggle("ativo");
+
+    if (navSearch.classList.contains("ativo")) {
+      navSearch.classList.remove("ativo");
+    }
   });
 }
 
@@ -212,3 +216,4 @@ if (searchBtn && navSearch) {
     }
   });
 }
+
