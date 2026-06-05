@@ -863,6 +863,63 @@
 
 .estadoVazio .emoji { font-size: 36px; display: block; margin-bottom: 10px; }
 
+/* PAGINAÇÃO */
+
+.paginacao{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin:50px 0;
+}
+
+.btnPagina{
+    min-width:48px;
+    height:48px;
+
+    border:2px solid var(--borderHover);
+    border-radius:var(--radius);
+
+    background:var(--bgCard);
+    color:var(--text);
+
+    font-size:15px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:all var(--transition);
+    box-shadow:var(--shadow);
+}
+
+.btnPagina:hover{
+    border-color:var(--accent);
+
+    color:var(--accent);
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        var(--shadow),
+        0 0 15px var(--accentGlow);
+}
+
+.btnPagina.ativo{
+    background:var(--accent);
+    color:white;
+    border-color:var(--accent);
+
+    box-shadow:
+        0 0 20px var(--accentGlow);
+}
+
+.reticencias{
+    color:var(--textMuted);
+    font-size:18px;
+    font-weight:bold;
+    user-select:none;
+}
+
 /* ===== RESPONSIVO ===== */
 @media (max-width: 900px) {
   .sidebarComunidade { display: none; }
@@ -964,3 +1021,5 @@
     font-size: 12px;
   }
 }
+
+

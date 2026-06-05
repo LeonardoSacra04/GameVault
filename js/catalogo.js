@@ -42,13 +42,13 @@ Temas.init();
         if (somenteDesconto) jogos = jogos.filter(g => g.discount > 0);
         if (precoMax < 500) jogos = jogos.filter(g => g.price <= precoMax);
 
-        renderCards(grid, jogos, pagina > 1);
-
+       renderCards(grid, jogos);
         const total = d.count;
+        const totalPaginas = Math.ceil(total / 24);
+        renderizarPaginacao(totalPaginas);
         const carregados = grid.querySelectorAll('.cardJogo').length;
         contagem.textContent = `Mostrando ${carregados}${total ? ' de ' + total.toLocaleString('pt-BR') : ''} jogos`;
 
-        pagina++;
         if (!d.next || pagina > 25) { temMais = false; fim.style.display = 'block'; }
       } catch(e) {
         grid.innerHTML += `<div style="grid-column:1/-1;text-align:center;color:var(--textMuted);padding:40px">Erro ao carregar.</div>`;
@@ -57,11 +57,6 @@ Temas.init();
         loader.style.display = 'none';
       }
     }
-
-    // Infinite scroll
-    new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && !carregando && temMais) carregarPagina();
-    }, { rootMargin: '200px' }).observe(loader);
 
     // Filtros
     document.getElementById('filtroPreco').addEventListener('input', e => {
@@ -89,6 +84,64 @@ Temas.init();
     document.getElementById('buscaCatalogo').addEventListener('input', e => {
       clearTimeout(timerBusca);
       timerBusca = setTimeout(() => { busca = e.target.value.trim(); resetarECarregar(); }, 500);
+    });
+
+       function criarBotao(texto, paginaDestino, ativo = false) {
+        const btn = document.createElement('button');
+
+        btn.className = 'btnPagina';
+        btn.textContent = texto;
+        btn.dataset.pagina = paginaDestino;
+
+        if (ativo) {
+            btn.classList.add('ativo');
+        }
+
+        return btn;
+    }
+
+    function renderizarPaginacao(totalPaginas) {
+
+        const paginacao = document.getElementById('paginacao');
+        paginacao.innerHTML = '';
+
+        if (pagina > 1) {
+            paginacao.appendChild(
+                criarBotao('‹', pagina - 1)
+            );
+        }
+
+        const inicio = Math.max(1, pagina - 2);
+        const fim = Math.min(totalPaginas, pagina + 2);
+
+        for (let i = inicio; i <= fim; i++) {
+            paginacao.appendChild(
+                criarBotao(i, i, i === pagina)
+            );
+        }
+
+        if (pagina < totalPaginas) {
+            paginacao.appendChild(
+                criarBotao('›', pagina + 1)
+            );
+        }
+    }
+
+      document.getElementById('paginacao').addEventListener('click', (e) => {
+
+        const btn = e.target.closest('.btnPagina');
+
+        if (!btn) return;
+
+        pagina = Number(btn.dataset.pagina);
+
+        carregarPagina();
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
     });
 
     resetarECarregar();
