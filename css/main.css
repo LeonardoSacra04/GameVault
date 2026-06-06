@@ -1051,7 +1051,6 @@ main,
 }
 
 
-
 .btnTopo {
   position: fixed;
   right: 20px;
@@ -1065,11 +1064,15 @@ main,
   display: grid;
   place-items: center;
 
-  color: #ffffff;
+  color: var(--accent);
   opacity: 0.78;
   z-index: 100;
 
-  transition: transform 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
+  transition:
+    transform var(--transition),
+    opacity var(--transition),
+    filter var(--transition);
+
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
 }
 
@@ -1085,11 +1088,16 @@ main,
 
 .btnTopo:hover {
   opacity: 1;
+  color: var(--accentHover);
   transform: translateY(-3px) scale(1.06);
+
+  filter:
+    drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 10px var(--accentGlow));
 }
 
 .btnTopo:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline: 2px solid var(--accent);
   outline-offset: 4px;
   border-radius: 999px;
 }
