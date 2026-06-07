@@ -200,7 +200,6 @@ function initPerfil() {
   _bindToggleAdultos();
   _bindBanner();
   _bindNavbarAvatar();
-  _bindMenuMobile();
   initBuscaNavbar();
 }
 
@@ -630,24 +629,7 @@ function _carregarReviews() {
 /* ============================================================
    MENU MOBILE
 ============================================================ */
-function _bindMenuMobile() {
-  const menuBtn  = document.getElementById('menuMobileBtn');
-  const navLinks = document.getElementById('navLinks');
-  if (menuBtn && navLinks) {
-    menuBtn.addEventListener('click', () => navLinks.classList.toggle('ativo'));
-  }
-
-  const searchBtn = document.getElementById('searchMobileBtn');
-  const navSearch = document.querySelector('.navSearch');
-  if (searchBtn && navSearch) {
-    searchBtn.addEventListener('click', () => {
-      navSearch.classList.toggle('ativo');
-      if (navSearch.classList.contains('ativo')) {
-        setTimeout(() => navSearch.querySelector('input')?.focus(), 200);
-      }
-    });
-  }
-}
+initNavbarMobile();
 
 /* ============================================================
    ARRANQUE
