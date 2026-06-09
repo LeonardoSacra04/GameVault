@@ -6,7 +6,6 @@ Temas.init();
     const loader = document.getElementById('loaderTrend');
     let pagina = 1, carregando = false, temMais = true;
 
-    // Ranking
     Api.getTrending(1, 10).then(d => {
       const jogos = FiltroNsfw.filtrar(d.results);
       cachear(jogos);
@@ -32,7 +31,6 @@ Temas.init();
       }).join('');
     }).catch(() => { document.getElementById('listaRanking').innerHTML = `<p style="color:var(--textMuted)">Erro ao carregar ranking.</p>`; });
 
-    // Grid trending
     async function carregarTrend() {
       if (carregando || !temMais) return;
       carregando = true; loader.style.display = 'flex';
