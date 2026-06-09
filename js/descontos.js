@@ -5,7 +5,6 @@ Temas.init();
     const grid = document.getElementById('gridDeals');
     let todosDeals = [], ordemAtual = 'descPct';
 
-    // Banner
     async function carregarBanner() {
       const banner = document.getElementById('bannerDeals');
       try {
@@ -32,7 +31,6 @@ Temas.init();
       } catch(e) { banner.style.display = 'none'; }
     }
 
-    // Carregar todos
     async function carregarTodos() {
       document.getElementById('loaderDeals').style.display = 'flex';
       try {

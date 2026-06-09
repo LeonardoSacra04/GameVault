@@ -52,9 +52,7 @@
   <div class="paginaWrapper">
     <main class="layoutPerfil">
 
-      <!-- ===== HERO DO PERFIL ===== -->
       <div class="perfilHero" id="perfilHero">
-        <!-- Banner clicável para editar -->
         <div class="perfilBanner" id="perfilBanner">
           <div class="perfilBannerOverlay"></div>
           <button class="btnEditarBanner" id="btnEditarBanner" title="Trocar banner">
@@ -68,9 +66,7 @@
           <input type="file" id="inputBanner" accept="image/*" style="display:none">
         </div>
 
-        <!-- Área do avatar + info -->
         <div class="perfilIdentidade">
-          <!-- Avatar -->
           <div class="wrapAvatar" id="wrapAvatar">
             <img class="avatarPerfil" id="avatarPerfil" data-avatar
               src="https://placehold.co/110x110/0d1525/4a5e80?text=G" alt="Avatar">
@@ -80,7 +76,6 @@
             <input type="file" id="avInputFile" accept="image/*" style="display:none">
           </div>
 
-          <!-- Nome + handle + stats -->
           <div class="perfilInfo">
             <div class="perfilNomeRow">
               <h1 class="nomePerfil" id="nomePerfil">Gamer</h1>
@@ -118,14 +113,12 @@
             </div>
           </div>
 
-          <!-- Botão editar -->
           <div class="perfilAcoes">
             <button class="btn btnSecundario btnSm" id="btnEditar">✏️ Editar Perfil</button>
           </div>
         </div>
       </div>
 
-      <!-- ===== EDITOR DE AVATAR (canvas) ===== -->
       <div class="avEditor" id="avEditor">
         <div class="avCanvasWrap">
           <div class="avClip" id="avClip">
@@ -167,7 +160,6 @@
         </div>
       </div>
 
-      <!-- ===== TABS ===== -->
       <nav class="tabsPerfil" role="tablist" aria-label="Seções do perfil">
         <button class="tabPerfil ativo" data-tab="sobre" role="tab" aria-selected="true">Sobre</button>
         <button class="tabPerfil" data-tab="favoritos" role="tab" aria-selected="false">❤️ Favoritos</button>
@@ -177,10 +169,8 @@
         <button class="tabPerfil" data-tab="queroJogar" role="tab" aria-selected="false">📌 Quero jogar</button>
       </nav>
 
-      <!-- ===== TAB: SOBRE ===== -->
       <div class="conteudoTab ativo" id="tab-sobre" role="tabpanel">
 
-        <!-- Biografia -->
         <div class="cardSecao">
           <div class="cabecalhoSecao">
             <span class="tituloSecao">📝 Biografia</span>
@@ -190,13 +180,11 @@
           </p>
         </div>
 
-        <!-- Configurações -->
         <div class="cardSecao">
           <div class="cabecalhoSecao">
             <span class="tituloSecao">⚙️ Preferências</span>
           </div>
 
-          <!-- Tema -->
           <div class="prefGrupo">
             <div class="prefLabelGrupo">🎨 Tema da Interface</div>
             <div class="gridTemas" id="gridTemas">
@@ -218,7 +206,6 @@
             </div>
           </div>
 
-          <!-- Toggle conteúdo adulto -->
           <div class="prefGrupo prefGrupoToggle">
             <div class="prefToggleInfo">
               <div class="prefLabelGrupo">🔞 Mostrar conteúdo adulto (+18)</div>
@@ -236,7 +223,6 @@
 
       </div>
 
-      <!-- ===== TAB: FAVORITOS ===== -->
       <div class="conteudoTab" id="tab-favoritos" role="tabpanel">
         <div class="cardSecao">
           <div class="cabecalhoSecao">
@@ -247,7 +233,6 @@
         </div>
       </div>
 
-      <!-- ===== TAB: REVIEWS ===== -->
       <div class="conteudoTab" id="tab-reviews" role="tabpanel">
         <div class="cardSecao">
           <div class="cabecalhoSecao">
@@ -258,7 +243,6 @@
         </div>
       </div>
 
-      <!-- ===== TAB: JOGANDO ===== -->
       <div class="conteudoTab" id="tab-jogando" role="tabpanel">
         <div class="cardSecao">
           <div class="cabecalhoSecao">
@@ -269,7 +253,6 @@
         </div>
       </div>
 
-      <!-- ===== TAB: CONCLUÍDOS ===== -->
       <div class="conteudoTab" id="tab-concluidos" role="tabpanel">
         <div class="cardSecao">
           <div class="cabecalhoSecao">
@@ -280,7 +263,6 @@
         </div>
       </div>
 
-      <!-- ===== TAB: QUERO JOGAR ===== -->
       <div class="conteudoTab" id="tab-queroJogar" role="tabpanel">
         <div class="cardSecao">
           <div class="cabecalhoSecao">
@@ -294,7 +276,6 @@
     </main>
   </div>
 
-  <!-- ===== MODAL DE EDIÇÃO DE PERFIL ===== -->
   <div class="modalOverlay" id="modalEdicaoPerfil" style="display:none" role="dialog" aria-modal="true"
     aria-labelledby="tituloModalEdicao">
     <div class="modalEdicao">
@@ -304,7 +285,6 @@
       </div>
 
       <div class="modalEdicaoCorpo">
-        <!-- Preview do avatar -->
         <div class="edicaoAvatarPreview">
           <div class="previewAvatarWrap">
             <img id="previewAvatarModal" src="https://placehold.co/80x80/0d1525/4a5e80?text=G" alt="Preview avatar">
@@ -319,7 +299,6 @@
           </div>
         </div>
 
-        <!-- Nickname -->
         <div class="campoEdicao">
           <label class="labelEdicao" for="inputNomeModal">Nickname</label>
           <input type="text" class="inputEdicao" id="inputNomeModal" maxlength="32" placeholder="Seu nome..."
@@ -327,7 +306,6 @@
           <span class="contadorCampo" id="contadorNome">0/32</span>
         </div>
 
-        <!-- Bio -->
         <div class="campoEdicao">
           <label class="labelEdicao" for="textareaBioModal">Bio</label>
           <textarea class="textareaEdicao" id="textareaBioModal" maxlength="300"

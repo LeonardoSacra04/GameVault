@@ -5,7 +5,6 @@ Temas.init();
     let jogoSelecionado = null, notaSelecionada = 0;
     const likes = {};
 
-    // Renderizar feed
     function renderFeed() {
       const reviews = Storage.getReviews();
       const feed = document.getElementById('feedReviews');
@@ -48,7 +47,6 @@ Temas.init();
           </article>`;
       }).join('');
 
-      // Eventos de like e deletar
       feed.querySelectorAll('.btnLike').forEach(btn => {
         btn.addEventListener('click', () => {
           const id = parseInt(btn.dataset.id);
@@ -74,7 +72,6 @@ Temas.init();
       renderTopReviews();
     }
 
-    // Top reviews na sidebar
     function renderTopReviews() {
       const reviews = Storage.getReviews();
       const el = document.getElementById('topReviews');
@@ -86,7 +83,6 @@ Temas.init();
         </div>`).join('');
     }
 
-    // Mini perfil sidebar
     function renderPerfilMini() {
       const p = Storage.getProfile();
       const avatar = p.avatar || `https://placehold.co/44x44/0d1525/4a5e80?text=${(p.nickname || 'G')[0].toUpperCase()}`;
@@ -112,7 +108,6 @@ Temas.init();
         </div>`).join('');
     }).catch(() => { document.getElementById('jogosDestaque').innerHTML = '<p style="font-size:13px;color:var(--textMuted)">Erro.</p>'; });
 
-    // Abrir/fechar painel
     document.getElementById('btnNovaReview').addEventListener('click', () => {
       const p = document.getElementById('painelNovaReview');
       p.style.display = p.style.display === 'none' ? 'block' : 'none';
@@ -121,7 +116,6 @@ Temas.init();
       document.getElementById('painelNovaReview').style.display = 'none';
     });
 
-    // Busca de jogo no formulário
     let timerBuscaJogo;
     document.getElementById('buscaJogoReview').addEventListener('input', e => {
       clearTimeout(timerBuscaJogo);
@@ -155,7 +149,6 @@ Temas.init();
       }, 400);
     });
 
-    // Estrelas do formulário
     const estrelasEl = document.getElementById('estrelasReview');
     estrelasEl.querySelectorAll('button').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -167,7 +160,6 @@ Temas.init();
       });
     });
 
-    // Publicar review
     document.getElementById('btnPublicarReview').addEventListener('click', () => {
       const texto = document.getElementById('textoReview').value.trim();
       if (!texto) return toast('Escreva algo!', 'aviso');

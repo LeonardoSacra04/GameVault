@@ -10,7 +10,6 @@ Temas.init();
     let pagina = 1, carregando = false, temMais = true;
     let generoAtivo = '', ordemAtiva = '-rating', busca = '', precoMax = 500, somenteDesconto = false;
 
-    // Gêneros
     Api.getGeneros().then(d => {
       const lista = document.getElementById('listaGeneros');
       lista.innerHTML = `<button class="btnGenero ativo" data-slug="">Todos</button>` +
@@ -58,7 +57,6 @@ Temas.init();
       }
     }
 
-    // Filtros
     document.getElementById('filtroPreco').addEventListener('input', e => {
       document.getElementById('exibePreco').textContent = e.target.value;
     });

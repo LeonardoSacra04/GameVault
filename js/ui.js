@@ -1,23 +1,18 @@
-//  UI — utilitários compartilhados 
+const cache = {};
+const cachear = (jogos) => (Array.isArray(jogos) ? jogos : [jogos]).forEach(g => { cache[g.id] = g; });
 
-// Cache de jogos para acesso rápido
-const cache = {};// cria obj pra guardar os jogos na memoria
-const cachear = (jogos) => (Array.isArray(jogos) ? jogos : [jogos]).forEach(g => { cache[g.id] = g; });// arrowF q recebe um jogo ou varios, se for array usa normal se nao transforma em array(salva o jogo usando o id dele)
-
-// Toast
-function toast(msg, tipo = 'padrao', ms = 3000) //notf de popup aparece por 3sec
+function toast(msg, tipo = 'padrao', ms = 3000) 
 {
-  let c = document.getElementById('toastContainer');//pega onde vai ficar o toast
+  let c = document.getElementById('toastContainer');
 
-  if (!c) { c = document.createElement('div'); c.id = 'toastContainer'; document.body.appendChild(c); }// se n tiver lugar ele cria uma div e com c.id coloca o id nela e boda esse id dentro do body
-  const t = document.createElement('div');//cria uma div pra ser a notif
-  t.className = `toast ${tipo}`;// bota classe toast
-  t.innerHTML = msg;// coloca o texto dentro do toast
-  c.appendChild(t);// bota o texto dentro do toast
-  setTimeout(() => { t.style.animation = 'none'; t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, ms); //espera um tempo, n tem animacao, opacidade fica em 0(transparente). e no tempo remove esse componente
+  if (!c) { c = document.createElement('div'); c.id = 'toastContainer'; document.body.appendChild(c); }
+  const t = document.createElement('div');
+  t.className = `toast ${tipo}`;
+  t.innerHTML = msg;
+  c.appendChild(t);
+  setTimeout(() => { t.style.animation = 'none'; t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, ms);
 }
 
-// Skeletons
 function skeletons(n = 8) {
   return Array.from({ length: n }, () => `
     <article class="skCard">
@@ -32,9 +27,8 @@ function skeletons(n = 8) {
 }
 
 
-// Formatar preço
-function precoHTML(g) //recebe o jogo
-{// se o desconto for maior q 0 vai retornar o preco padrao dele e o preco dps do disconto, se n tiver preco volta como gratuiro, ai volta normal se n tem desconto
+function precoHTML(g)
+{
   if (g.discount > 0) return `
     <div>
       <span class="precoOriginal">R$ ${g.originalPrice.toFixed(2).replace('.', ',')}</span>
@@ -44,12 +38,11 @@ function precoHTML(g) //recebe o jogo
   return `<span class="precoFinal">R$ ${g.price.toFixed(2).replace('.', ',')}</span>`;
 }
 
-// HTML de um card
 function cardHTML(g) 
 {
-  const isFav = Storage.isFavorite(g.id);// retirba true ou false se e fav ou n
-  const tags = (g.genres || []).slice(0, 2).map(x => `<span class="tag">${x.name}</span>`).join('') || '<span class="tag">Game</span>';// pega as tags e se n tiver usa nada, bota no max 2 generos ai transforma cada um dos generos em um span no html e junta tudo num so, se nao tiver tag volta como game apenas
-  const img = g.background_image || 'https://placehold.co/460x260/0d1525/4a5e80?text=No+Image';//pega a foto de fundo do jogo e se n tiver uma um placeholder q n tem imagem
+  const isFav = Storage.isFavorite(g.id);
+  const tags = (g.genres || []).slice(0, 2).map(x => `<span class="tag">${x.name}</span>`).join('') || '<span class="tag">Game</span>';
+  const img = g.background_image || 'https://placehold.co/460x260/0d1525/4a5e80?text=No+Image';
   return `
     <article class="cardJogo" data-id="${g.id}" tabindex="0" role="button">
       <div class="cardImagem">
@@ -65,10 +58,9 @@ function cardHTML(g)
           ${precoHTML(g)}
         </div>
       </div>
-    </article>`;//retorna o card bonitinho
+    </article>`;
 }
 
-// Renderizar cards em um container
 function renderCards(el, jogos, append = false) {
   const jogosFiltrados = FiltroNsfw.filtrar(jogos);
   cachear(jogosFiltrados);
@@ -78,7 +70,6 @@ function renderCards(el, jogos, append = false) {
   bindCards(el);
 }
 
-// Vincular eventos dos cards
 function bindCards(el) {
   el.querySelectorAll('.cardJogo').forEach(card => {
     const id = parseInt(card.dataset.id);
@@ -108,7 +99,6 @@ function bindCards(el) {
   });
 }
 
-// Modal de detalhe
 function abrirModal(g) {
   document.getElementById('modalJogo')?.remove();
 
@@ -178,7 +168,6 @@ function abrirModal(g) {
   overlay.addEventListener('click', e => { if (e.target === overlay) fechar(); });
   document.addEventListener('keydown', function esc(e) { if (e.key === 'Escape') { fechar(); document.removeEventListener('keydown', esc); } });
 
-  // Estrelas
   overlay.querySelectorAll('.estrela').forEach(btn => {
     btn.addEventListener('click', () => {
       const val = parseInt(btn.dataset.val);
@@ -188,7 +177,6 @@ function abrirModal(g) {
     });
   });
 
-  // Favoritar
   overlay.querySelector('#btnModalFav').addEventListener('click', () => {
     const btn = overlay.querySelector('#btnModalFav');
     if (Storage.isFavorite(g.id)) {
@@ -206,7 +194,6 @@ function abrirModal(g) {
     });
   });
 
-  // Playing
   overlay.querySelector('#btnModalPlaying').addEventListener('click', () => {
     const btn = overlay.querySelector('#btnModalPlaying');
     if (Storage.isPlaying(g.id)) {
@@ -220,7 +207,6 @@ function abrirModal(g) {
     }
   });
 
-  // Concluído
   overlay.querySelector('#btnModalConcluido').addEventListener('click', () => {
     const btn = overlay.querySelector('#btnModalConcluido');
     if (Storage.isConcluido(g.id)) {
@@ -234,7 +220,6 @@ function abrirModal(g) {
     }
   });
 
-  // Quero jogar
   overlay.querySelector('#btnModalQueroJogar').addEventListener('click', () => {
     const btn = overlay.querySelector('#btnModalQueroJogar');
     if (Storage.isQueroJogar(g.id)) {
@@ -248,7 +233,6 @@ function abrirModal(g) {
     }
   });
 
-  // Review
   const reviewBox = overlay.querySelector('#reviewInlineModal');
   overlay.querySelector('#btnModalReview').addEventListener('click', () => {
     reviewBox.style.display = reviewBox.style.display === 'block' ? 'none' : 'block';
@@ -265,7 +249,6 @@ function abrirModal(g) {
   });
 }
 
-// Carrossel
 function initCarrossel(track, prev, next) {
   if (!track || !prev || !next) return;
   const scroll = () => (track.querySelector('.cardJogo')?.offsetWidth || 216) + 16;
@@ -273,7 +256,6 @@ function initCarrossel(track, prev, next) {
   next.addEventListener('click', () => track.scrollBy({ left: scroll() * 3, behavior: 'smooth' }));
 }
 
-// Busca na navbar
 function initBuscaNavbar() {
   const input = document.getElementById('buscaNavbar');
   const results = document.getElementById('resultadosBusca');
@@ -313,20 +295,17 @@ function initBuscaNavbar() {
   });
 }
 
-// Atualizar avatar na navbar
 function atualizarAvatarNavbar() {
   const p = Storage.getProfile();
   const nav = document.getElementById('avatarNavbar');
   if (nav) nav.src = p.avatar || `https://placehold.co/36x36/0d1525/4a5e80?text=${(p.nickname || 'G')[0].toUpperCase()}`;
 }
 
-// Inicializar menu mobile e busca mobile (para páginas SEM busca local)
 function initNavbarMobile() {
   const menuBtn  = document.getElementById('menuMobileBtn');
   const navLinks = document.getElementById('navLinks');
   if (menuBtn && navLinks) {
     menuBtn.addEventListener('click', () => navLinks.classList.toggle('ativo'));
-    // Fechar menu ao clicar em link
     navLinks.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => navLinks.classList.remove('ativo'));
     });
@@ -341,7 +320,6 @@ function initNavbarMobile() {
         setTimeout(() => navSearch.querySelector('input')?.focus(), 200);
       }
     });
-    // Fechar busca ao clicar fora
     document.addEventListener('click', e => {
       if (!e.target.closest('.navSearch') && !e.target.closest('.searchMobileBtn')) {
         navSearch.classList.remove('ativo');

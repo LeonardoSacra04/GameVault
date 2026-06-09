@@ -1,8 +1,5 @@
-/* ===== GAMEVAULT — MAIN CSS ===== */
-
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@500;700&display=swap');
 
-/* ===== VARIÁVEIS ===== */
 :root {
   --bg:         #080e1a;
   --bgCard:     #0d1525;
@@ -75,7 +72,6 @@
   --navBg:      rgba(240,244,255,0.88);
 }
 
-/* ===== RESET ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
@@ -94,7 +90,6 @@ button { font-family: var(--font); cursor: pointer; }
 img { display: block; max-width: 100%; }
 input, textarea, select { font-family: var(--font); }
 
-/* ===== NAVBAR ===== */
 .navbar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -229,7 +224,6 @@ input, textarea, select { font-family: var(--font); }
 }
 .navAvatar:hover { border-color: var(--accent); }
 
-/* ===== BOTÕES ===== */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -259,7 +253,6 @@ input, textarea, select { font-family: var(--font); }
 
 .btnSm { padding: 6px 14px; font-size: 13px; }
 
-/* ===== CARDS DE JOGO ===== */
 .gridJogos {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
@@ -380,7 +373,6 @@ input, textarea, select { font-family: var(--font); }
 .precoFinal { color: var(--green); }
 .precoGratuito { color: var(--accent); }
 
-/* ===== SKELETON ===== */
 .skeleton {
   background: linear-gradient(90deg, var(--bgElevated) 25%, var(--border) 50%, var(--bgElevated) 75%);
   background-size: 200% 100%;
@@ -406,7 +398,6 @@ input, textarea, select { font-family: var(--font); }
 .skTag { height: 10px; width: 60%; margin-bottom: 8px; border-radius: 4px; }
 .skPreco { height: 12px; width: 40%; border-radius: 4px; }
 
-/* ===== MODAL ===== */
 .modalOverlay {
   position: fixed;
   inset: 0;
@@ -478,6 +469,7 @@ input, textarea, select { font-family: var(--font); }
   backdrop-filter: blur(4px);
   transition: background var(--transition);
 }
+
 .btnFecharModal:hover { background: var(--red); }
 
 .modalCorpo { padding: 20px 24px 28px; }
@@ -535,6 +527,7 @@ input, textarea, select { font-family: var(--font); }
   transition: color var(--transition), transform var(--transition);
   padding: 0 2px;
 }
+
 .estrela:hover, .estrela.ativa { color: var(--orange); }
 .estrela:hover { transform: scale(1.2); }
 
@@ -562,23 +555,25 @@ input, textarea, select { font-family: var(--font); }
   outline: none;
   transition: border-color var(--transition);
 }
+
 .reviewInline textarea:focus { border-color: var(--accent); }
 .reviewInline .btnPrimario { margin-top: 8px; }
 
-/* ===== CARROSSEL ===== */
 .carrosselWrapper {
   position: relative;
-  width: 100%; /* FIX #1 */
+  width: 100%;
 }
+
 .carrosselTrack {
   display: flex;
-  flex-direction: row; /* FIX #3 */
+  flex-direction: row;
   gap: 16px;
   overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: none;
   padding: 4px 0 12px;
 }
+
 .carrosselTrack::-webkit-scrollbar { display: none; }
 .carrosselTrack .cardJogo { flex: 0 0 200px; }
 
@@ -601,11 +596,11 @@ input, textarea, select { font-family: var(--font); }
   transition: all var(--transition);
   box-shadow: var(--shadow);
 }
+
 .btnCarrossel:hover { background: var(--accent); border-color: var(--accent); }
 .btnCarrosselPrev { left: -16px; }
 .btnCarrosselNext { right: -16px; }
 
-/* ===== SECTION HEADER ===== */
 .secaoHeader {
   display: flex;
   align-items: center;
@@ -625,9 +620,9 @@ input, textarea, select { font-family: var(--font); }
   color: var(--textSub);
   transition: color var(--transition);
 }
+
 .linkVerTodos:hover { color: var(--accent); }
 
-/* ===== FOOTER ===== */
 footer {
   border-top: 1px solid var(--border);
   padding: 32px;
@@ -647,7 +642,6 @@ footer .logoFooter {
 footer .logoFooter span { color: var(--accent); }
 footer a { color: var(--accent); }
 
-/* ===== TOAST ===== */
 #toastContainer {
   position: fixed;
   bottom: 24px;
@@ -677,7 +671,6 @@ footer a { color: var(--accent); }
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* ===== SPINNER ===== */
 .spinner {
   width: 32px;
   height: 32px;
@@ -699,7 +692,6 @@ footer a { color: var(--accent); }
   font-size: 14px;
 }
 
-/* ===== LOADING SPINNER ===== */
 .carregando {
   display: flex;
   align-items: center;
@@ -707,13 +699,10 @@ footer a { color: var(--accent); }
   padding: 40px;
 }
 
-/* ===== PAGE WRAPPER ===== */
 .paginaWrapper {
   padding-top: 64px;
   min-height: 100vh;
 }
-
-/* ===== MENU MOBILE ===== */
 
 .menuMobileBtn {
   display: none;
@@ -724,15 +713,11 @@ footer a { color: var(--accent); }
   cursor: pointer;
 }
 
-/* ===== PESQUISA MOBILE ===== */
-
 .searchMobileBtn {
   display: none;
 }
 
-/* ===== RESPONSIVIDADE ===== */
 
-/* Celulares */
 @media (max-width: 768px) {
 
   .navbar {
@@ -917,7 +902,6 @@ footer a { color: var(--accent); }
 }
 
 
-/* ===== RESPONSIVIDADE INTERMEDIÁRIA (notebook pequeno / tablet landscape) ===== */
 @media (max-width: 1100px) and (min-width: 769px) {
   .navbar {
     gap: 8px;
@@ -938,14 +922,11 @@ footer a { color: var(--accent); }
   }
 }
 
-/* ===== CORREÇÕES DE RESPONSIVIDADE GERAL ===== */
-
 html, body {
   overflow-x: hidden;
   max-width: 100%;
 }
 
-/* Evita overflow horizontal em containers */
 .paginaWrapper,
 main,
 .layoutPerfil,
@@ -955,7 +936,6 @@ main,
   box-sizing: border-box;
 }
 
-/* Cards não deformam */
 .cardJogo,
 .cardFavorito,
 .cardReview {
@@ -963,7 +943,6 @@ main,
   box-sizing: border-box;
 }
 
-/* Grids responsivos para tablets */
 @media (max-width: 1024px) and (min-width: 769px) {
   .gridJogos {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -983,7 +962,6 @@ main,
   }
 }
 
-/* Ajustes mobile adicionais */
 @media (max-width: 768px) {
   .gridFavoritos {
     grid-template-columns: repeat(2, 1fr);
@@ -1049,7 +1027,6 @@ main,
     min-width: 0;
   }
 }
-
 
 .btnTopo {
   position: fixed;

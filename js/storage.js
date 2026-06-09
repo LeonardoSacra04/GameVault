@@ -1,4 +1,3 @@
-/* ===== storage.js ===== */
 const Storage = {
   get: (k, d = null) => { try { const v = localStorage.getItem(k); return v !== null ? JSON.parse(v) : d; } catch { return d; } },
   set: (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
@@ -33,16 +32,13 @@ const Storage = {
   getRating: (id) => (Storage.get('gv_ratings', {}))[id] || 0,
   setRating: (id, val) => { const r = Storage.get('gv_ratings', {}); r[id] = val; Storage.set('gv_ratings', r); },
 
-  // Tema — chave: 'gv_theme', valor padrão: 'padrao'
   getTheme: () => Storage.get('gv_theme', 'padrao'),
   setTheme: (t) => Storage.set('gv_theme', t),
 
-  // Conteúdo adulto — desligado por padrão
   getMostrarAdultos: () => Storage.get('gv_mostrar_adultos', false),
   setMostrarAdultos: (v) => Storage.set('gv_mostrar_adultos', !!v),
 };
 
-/* ===== Temas ===== */
 const Temas = {
   lista: [
     { id: 'padrao', nome: 'Deep Space', icone: '🌌' },
@@ -52,13 +48,11 @@ const Temas = {
     { id: 'light',  nome: 'Claro',      icone: '☀️' },
   ],
 
-  // Aplica o data-theme no <html> e persiste no localStorage
   aplicar(id) {
     document.documentElement.setAttribute('data-theme', id === 'padrao' ? '' : id);
     Storage.setTheme(id);
   },
 
-  // Chamado no topo de TODAS as páginas — lê e aplica o tema salvo
   init() {
     this.aplicar(Storage.getTheme() || 'padrao');
   },

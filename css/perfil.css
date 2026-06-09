@@ -1,20 +1,9 @@
-/* ===== perfil.css =====
-   Estilos da página de perfil — reformulado.
-   Requer: main.css (variáveis, .btn, navbar, etc.)
-================================================================ */
-
-/* ============================================================
-   LAYOUT
-============================================================ */
 .layoutPerfil {
   max-width: 900px;
   margin: 0 auto;
   padding: 48px 24px 80px;
 }
 
-/* ============================================================
-   HERO DO PERFIL
-============================================================ */
 .perfilHero {
   background: var(--bgCard);
   border: 1px solid var(--border);
@@ -23,7 +12,6 @@
   margin-bottom: 20px;
 }
 
-/* --- Banner --- */
 .perfilBanner {
   height: 160px;
   background: linear-gradient(135deg, var(--accent) 0%, #1e3a6e 55%, #0d1f3a 100%);
@@ -92,13 +80,11 @@
   color: #fff;
 }
 
-/* Banner com imagem customizada */
 .perfilBanner.temImagem {
   background-size: cover;
   background-position: center;
 }
 
-/* --- Identidade: avatar + info + botão --- */
 .perfilIdentidade {
   display: flex;
   align-items: flex-end;
@@ -107,7 +93,6 @@
   flex-wrap: wrap;
 }
 
-/* ---- Avatar ---- */
 .wrapAvatar {
   position: relative;
   margin-top: -56px;
@@ -136,9 +121,6 @@
 
 .wrapAvatar:hover .avatarPerfil { border-color: var(--accent); }
 
-/* ============================================================
-  ADICIONADO 26/05
-============================================================ */
 .previewAvatarWrap {
   position: relative;
   width: 56px;
@@ -208,7 +190,6 @@
 
 .wrapAvatar:hover .btnEditarAvatar { opacity: 1; }
 
-/* ---- Info ---- */
 .perfilInfo {
   flex: 1;
   min-width: 0;
@@ -278,14 +259,12 @@
   flex-shrink: 0;
 }
 
-/* ---- Ações ---- */
 .perfilAcoes {
   margin-left: auto;
   align-self: flex-end;
   flex-shrink: 0;
 }
 
-/* Badge "Editando" */
 .badgeEditando {
   display: none;
   align-items: center;
@@ -315,9 +294,6 @@
   50%       { opacity: 0.2; }
 }
 
-/* ============================================================
-   EDITOR DE AVATAR (canvas) — igual ao original
-============================================================ */
 .avEditor {
   display: none;
   gap: 40px;
@@ -482,9 +458,7 @@
 
 .avBtnOutra:hover { color: var(--accent); }
 
-/* ============================================================
-   TABS
-============================================================ */
+
 .tabsPerfil {
   display: flex;
   border-bottom: 1px solid var(--border);
@@ -522,9 +496,6 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ============================================================
-   CARD DE SEÇÃO
-============================================================ */
 .cardSecao {
   background: var(--bgCard);
   border: 1px solid var(--border);
@@ -560,9 +531,6 @@
   border-radius: 99px;
 }
 
-/* ============================================================
-   BIOGRAFIA
-============================================================ */
 .textoBio {
   font-size: 14px;
   color: var(--textSub);
@@ -577,9 +545,6 @@
   font-style: italic;
 }
 
-/* ============================================================
-   PREFERÊNCIAS
-============================================================ */
 .prefGrupo {
   margin-bottom: 24px;
 }
@@ -602,7 +567,6 @@
   margin-top: 4px;
 }
 
-/* Toggle row */
 .prefGrupoToggle {
   display: flex;
   align-items: flex-start;
@@ -614,7 +578,6 @@
 
 .prefToggleInfo { flex: 1; min-width: 0; }
 
-/* ---- Toggle Switch ---- */
 .toggleSwitch {
   position: relative;
   display: inline-block;
@@ -666,7 +629,6 @@
   outline-offset: 2px;
 }
 
-/* ---- Temas ---- */
 .gridTemas {
   display: flex;
   gap: 8px;
@@ -704,9 +666,6 @@
   flex-shrink: 0;
 }
 
-/* ============================================================
-   GRID DE FAVORITOS / JOGANDO
-============================================================ */
 .gridFavoritos {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -760,9 +719,6 @@
 .cardFavorito:hover .btnRemoverFav { opacity: 1; }
 .btnRemoverFav:hover { color: var(--red); background: rgba(0,0,0,0.85); }
 
-/* ============================================================
-   REVIEWS
-============================================================ */
 .cardReview {
   background: var(--bgElevated);
   border: 1px solid var(--border);
@@ -804,9 +760,6 @@
 
 .btnDeletarReview:hover { color: var(--red); }
 
-/* ============================================================
-   ESTADO VAZIO
-============================================================ */
 .estadoVazio {
   text-align: center;
   padding: 48px 20px;
@@ -820,9 +773,6 @@
   line-height: 1.7;
 }
 
-/* ============================================================
-   MODAL DE EDIÇÃO DE PERFIL
-============================================================ */
 .modalOverlay {
   position: fixed;
   inset: 0;
@@ -906,7 +856,6 @@
   gap: 16px;
 }
 
-/* Preview no modal */
 .edicaoAvatarPreview {
   display: flex;
   align-items: center;
@@ -940,7 +889,6 @@
   margin-top: 2px;
 }
 
-/* Campos do modal */
 .campoEdicao {
   display: flex;
   flex-direction: column;
@@ -1017,9 +965,7 @@
 
 .modalEdicaoFooter .btn { min-width: 100px; justify-content: center; }
 
-/* ============================================================
-   RESPONSIVO
-============================================================ */
+
 @media (max-width: 768px) {
   .layoutPerfil { padding: 24px 16px 60px; }
 
@@ -1060,10 +1006,6 @@
   .stat { padding-right: 16px; }
 }
 
-
-/* ===== FIXES RESPONSIVIDADE PERFIL ===== */
-
-/* Avatar preview circulo - garantir redondo */
 .avPreviewCircle {
   border-radius: 50%;
   overflow: hidden;
@@ -1080,12 +1022,10 @@
   display: block;
 }
 
-/* wrapAvatar não deforma */
 .wrapAvatar {
   flex-shrink: 0;
 }
 
-/* perfilInfo não extrapola */
 .perfilInfo {
   flex: 1;
   min-width: 0;
@@ -1102,19 +1042,16 @@
   word-break: break-word;
 }
 
-/* Stats flexíveis */
 .statsPerfil {
   flex-wrap: wrap;
 }
 
-/* Cards de favoritos responsivos */
 .gridFavoritos {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
   gap: 12px;
 }
 
-/* cardFavorito não deforma */
 .cardFavorito {
   min-width: 0;
   overflow: hidden;
@@ -1125,7 +1062,6 @@
   word-break: break-word;
 }
 
-/* Tabs scrolláveis em telas pequenas */
 @media (max-width: 600px) {
   .layoutPerfil {
     padding: 20px 12px 60px;

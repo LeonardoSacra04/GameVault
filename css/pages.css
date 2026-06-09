@@ -1,6 +1,3 @@
-/* ===== PÁGINAS INTERNAS — CSS ===== */
-
-/* Títulos compartilhados */
 .tituloPagina {
   font-family: var(--fontDisplay);
   font-size: 30px;
@@ -30,14 +27,12 @@
   flex-wrap: wrap;
 }
 
-/* ===== LAYOUT LISTING (lançamentos, em alta, descontos) ===== */
 .layoutListing {
   max-width: 1400px;
   margin: 0 auto;
   padding: 40px clamp(16px, 4vw, 40px) 20px;
 }
 
-/* Barra de busca */
 .barraBusca {
   position: relative;
   display: flex;
@@ -85,7 +80,6 @@
 }
 .selectFiltro:focus { border-color: var(--accent); }
 
-/* ===== DESTAQUE (hero interno) ===== */
 .destaqueRelease {
   position: relative;
   height: clamp(200px, 25vw, 300px);
@@ -146,7 +140,6 @@
   flex-wrap: wrap;
 }
 
-/* ===== RANKING (em alta) ===== */
 .listaRanking {
   display: flex;
   flex-direction: column;
@@ -230,7 +223,6 @@
   border-radius: 99px;
 }
 
-/* ===== DESCONTOS — BANNER ===== */
 .bannerDescontos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
@@ -308,7 +300,6 @@
 .dealPrecoOriginal { color: rgba(255,255,255,0.45); text-decoration: line-through; font-size: 12px; }
 .dealPrecoFinal { color: var(--green); font-weight: 700; font-size: 17px; font-family: var(--fontMono); }
 
-/* ===== CATÁLOGO ===== */
 .layoutCatalogo {
   display: flex;
   max-width: 1600px;
@@ -405,7 +396,6 @@
   margin-top: 4px;
 }
 
-/* ===== COMUNIDADE ===== */
 .layoutComunidade {
   display: flex;
   gap: 28px;
@@ -505,7 +495,6 @@
 .estrelasForm button.ativa { color: var(--orange); }
 .estrelasForm button:hover { transform: scale(1.15); }
 
-/* Card review */
 .cardReview {
   background: var(--bgCard);
   border: 1px solid var(--border);
@@ -543,6 +532,7 @@
   overflow-wrap: break-word;
   word-break: break-word;
 }
+
 .dataReview { font-size: 12px; color: var(--textMuted); }
 .notaReview { color: var(--orange); font-size: 14px; margin-left: auto; }
 
@@ -608,7 +598,6 @@
 }
 .btnDeletar:hover { color: var(--red); }
 
-/* Sidebar comunidade */
 .sidebarComunidade {
   width: clamp(220px, 22vw, 270px);
   flex-shrink: 0;
@@ -656,13 +645,13 @@
   transition: opacity var(--transition);
   overflow: hidden
 }
+
 .jogoSidebar:last-child { border-bottom: none; }
 .jogoSidebar:hover { opacity: 0.7; }
 .jogoSidebar img { width: 40px; height: 28px; border-radius: 3px; object-fit: cover; }
 .jogoSidebar .nome { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .jogoSidebar .nota { font-size: 11px; color: var(--orange); }
 
-/* ===== PERFIL ===== */
 .layoutPerfil {
   max-width: 1000px;
   margin: 0 auto;
@@ -758,7 +747,6 @@
   letter-spacing: 0.5px;
 }
 
-/* Painel de edição */
 .painelEdicao {
   background: var(--bgCard);
   border: 1px solid var(--border);
@@ -815,7 +803,6 @@
 .btnTema:hover { border-color: var(--borderHover); }
 .btnTema.ativo { border-color: var(--accent); color: var(--accent); background: var(--accentGlow); }
 
-/* Tabs */
 .tabsPerfil {
   display: flex;
   border-bottom: 1px solid var(--border);
@@ -848,13 +835,11 @@
   margin-bottom: 18px;
 }
 
-/* Painel adicionar jogo */
 .painelAdicionarJogo {
   margin-bottom: 16px;
   display: none;
 }
 
-/* Estado vazio */
 .estadoVazio {
   text-align: center;
   padding: 48px 20px;
@@ -862,8 +847,6 @@
 }
 
 .estadoVazio .emoji { font-size: 36px; display: block; margin-bottom: 10px; }
-
-/* PAGINAÇÃO */
 
 .paginacao{
     display:flex;
@@ -920,7 +903,6 @@
     user-select:none;
 }
 
-/* ===== RESPONSIVO ===== */
 @media (max-width: 900px) {
   .sidebarComunidade { display: none; }
   .layoutComunidade { padding: 20px 16px; }
@@ -938,14 +920,11 @@
   .statsPerfil { gap: 16px; }
 }
 
-/* ===== REMOVE busca duplicada nas páginas com busca própria ===== */
-
 .temBuscaLocal .navSearch,
 .temBuscaLocal .searchMobileBtn {
   display: none !important;
 }
 
-/* No desktop e tablet, a navSearch da navbar SEMPRE fica visível */
 @media (min-width: 769px) {
   .navSearch {
     position: relative !important;
@@ -960,21 +939,15 @@
   }
 }
 
-/* ===== FIX: oculta botão de busca mobile nas páginas com busca própria ===== */
-/* Evita 2 barras de pesquisa visíveis ao mesmo tempo */
 .temBuscaLocal .searchMobileBtn {
   display: none !important;
 }
 
-/* ===== RESPONSIVIDADE ADICIONAL ===== */
-
-/* Ultrawide */
 @media (min-width: 1800px) {
   .layoutListing { max-width: 1600px; }
   .layoutComunidade { max-width: 1500px; }
 }
 
-/* Tablet portrait */
 @media (max-width: 768px) {
   .bannerDescontos {
     grid-template-columns: 1fr;
@@ -1002,7 +975,6 @@
   }
 }
 
-/* Telas muito pequenas */
 @media (max-width: 380px) {
   .gridJogos {
     grid-template-columns: 1fr;
