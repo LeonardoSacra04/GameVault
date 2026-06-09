@@ -95,7 +95,6 @@ Temas.init();
         </div>`;
     }
 
-    // Jogos em destaque (sidebar)
     Api.getPopular(1, 5).then(d => {
       cachear(d.results);
       document.getElementById('jogosDestaque').innerHTML = d.results.map(g => `
