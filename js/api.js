@@ -128,7 +128,7 @@ const FiltroNsfw = (() => {
     },
 
     filtrar(jogos = []) {
-      if (Storage.getMostrarAdultos()) return jogos; // filtro desligado → passa tudo
+      if (Storage.getMostrarAdultos()) return jogos; 
       return jogos.filter(g => !this.ehAdulto(g));
     },
 
