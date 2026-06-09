@@ -7,7 +7,6 @@ Temas.init();
     const fim = document.getElementById('fimLancamentos');
     let pagina = 1, carregando = false, temMais = true;
 
-    // Destaque
     Api.getLancamentos(1, 1).then(d => {
       const g = FiltroNsfw.filtrar(d.results)[0];
       const el = document.getElementById('destaqueRelease');
