@@ -1,12 +1,3 @@
-/* ===== perfil.js =====
-   Depende de: storage.js  →  Storage, Temas
-              filtroNsfw.js → FiltroNsfw
-              ui.js         →  toast, abrirModal
-================================================================ */
-
-/* ============================================================
-   AVATAR EDITOR (integrado — ex-avatar-editor.js)
-============================================================ */
 const AvatarEditor = (() => {
   const SIZE    = 300;
   const QUALITY = 0.92;
@@ -179,9 +170,7 @@ const AvatarEditor = (() => {
   return { init, salvar, cancelar };
 })();
 
-/* ============================================================
-   INICIALIZAÇÃO
-============================================================ */
+
 function initPerfil() {
   AvatarEditor.init();
   Temas.init();
@@ -203,9 +192,7 @@ function initPerfil() {
   initBuscaNavbar();
 }
 
-/* ============================================================
-   CABEÇALHO
-============================================================ */
+
 function _carregarCabecalho() {
   const p = Storage.getProfile();
   _aplicarNome(p.nickname || 'Gamer');
@@ -250,9 +237,7 @@ function _bindNavbarAvatar(src) {
     `https://placehold.co/36x36/0d1525/4a5e80?text=${(p.nickname || 'G')[0].toUpperCase()}`;
 }
 
-/* ============================================================
-   BANNER CUSTOMIZÁVEL
-============================================================ */
+
 function _bindBanner() {
   const btnBanner  = document.getElementById('btnEditarBanner');
   const inputBanner = document.getElementById('inputBanner');
@@ -280,9 +265,6 @@ function _bindBanner() {
   });
 }
 
-/* ============================================================
-   BOTÃO "EDITAR PERFIL"
-============================================================ */
 function _bindBtnEditar() {
   document.getElementById('btnEditar')?.addEventListener('click', _abrirModalEdicao);
 }
@@ -292,9 +274,6 @@ document.querySelector('.previewAvatarWrap')
     document.getElementById('avInputFile')?.click();
   });
 
-/* ============================================================
-   MODAL DE EDIÇÃO
-============================================================ */
 function _abrirModalEdicao() {
   const p     = Storage.getProfile();
   const modal = document.getElementById('modalEdicaoPerfil');
@@ -378,9 +357,6 @@ function _bindModalEdicao() {
   });
 }
 
-/* ============================================================
-   TEMAS
-============================================================ */
 function _bindTemas() {
   document.querySelectorAll('.btnTema').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -398,9 +374,6 @@ function _carregarTemaAtivo() {
   });
 }
 
-/* ============================================================
-   TOGGLE CONTEÚDO ADULTO
-============================================================ */
 function _bindToggleAdultos() {
   const toggle = document.getElementById('toggleAdultos');
   if (!toggle) return;
@@ -412,9 +385,6 @@ function _bindToggleAdultos() {
   });
 }
 
-/* ============================================================
-   TABS
-============================================================ */
 function _bindTabs() {
   document.querySelectorAll('.tabPerfil').forEach(tab => {
     tab.addEventListener('click', () => {
@@ -437,9 +407,6 @@ function _bindTabs() {
   });
 }
 
-/* ============================================================
-   STATS
-============================================================ */
 function _carregarStats() {
   document.getElementById('statFavs')       .textContent = Storage.getFavorites().length;
   document.getElementById('statReviews')    .textContent = Storage.getReviews().length;
@@ -448,9 +415,6 @@ function _carregarStats() {
   document.getElementById('statQueroJogar') .textContent = Storage.getQueroJogar().length;
 }
 
-/* ============================================================
-   HELPER: renderizar grid de cards (reutilizado em 4 seções)
-============================================================ */
 function _renderGridCards({ lista, gridId, contId, emptyEmoji, emptyMsg, metaFn, removeFn, statFn }) {
   const grid = document.getElementById(gridId);
   const cont = document.getElementById(contId);
@@ -501,9 +465,6 @@ function _renderGridCards({ lista, gridId, contId, emptyEmoji, emptyMsg, metaFn,
   });
 }
 
-/* ============================================================
-   FAVORITOS
-============================================================ */
 function _carregarFavoritos() {
   const favs = Storage.getFavorites();
   _renderGridCards({
@@ -518,9 +479,6 @@ function _carregarFavoritos() {
   });
 }
 
-/* ============================================================
-   JOGANDO AGORA
-============================================================ */
 function _carregarJogando() {
   const lista = Storage.getPlaying();
   _renderGridCards({
@@ -535,9 +493,6 @@ function _carregarJogando() {
   });
 }
 
-/* ============================================================
-   JOGOS CONCLUÍDOS
-============================================================ */
 function _carregarConcluidos() {
   const lista = Storage.getConcluidos();
   _renderGridCards({
@@ -552,9 +507,6 @@ function _carregarConcluidos() {
   });
 }
 
-/* ============================================================
-   QUERO JOGAR
-============================================================ */
 function _carregarQueroJogar() {
   const lista = Storage.getQueroJogar();
   _renderGridCards({
@@ -569,9 +521,6 @@ function _carregarQueroJogar() {
   });
 }
 
-/* ============================================================
-   REVIEWS
-============================================================ */
 function _carregarReviews() {
   const reviews = Storage.getReviews();
   const lista   = document.getElementById('listaReviews');
@@ -626,12 +575,6 @@ function _carregarReviews() {
   });
 }
 
-/* ============================================================
-   MENU MOBILE
-============================================================ */
 initNavbarMobile();
 
-/* ============================================================
-   ARRANQUE
-============================================================ */
 document.addEventListener('DOMContentLoaded', initPerfil);
